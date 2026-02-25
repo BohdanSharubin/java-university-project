@@ -57,10 +57,7 @@ public class App {
                     case 2:
                         System.out.println(Arrays.toString(clothesArray));
                         break;
-                    case 3:
-                        System.out.println("Was created " + Clothes.getCounter() + " clothes.");
-                        break;
-                    case 4:
+                    case 99:
                         isWorking = false;
                         break;
                     default:

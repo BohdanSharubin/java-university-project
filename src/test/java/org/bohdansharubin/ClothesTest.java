@@ -163,14 +163,4 @@ class ClothesTest {
 
         assertEquals("American size can't be null", ex.getMessage());
     }
-
-    @DisplayName("Counter is increased after creating new instance")
-    @Test
-    void shouldIncreaseCounterWhenNewInstanceCreated() {
-        int before = Clothes.getCounter();
-
-        new Clothes();
-
-        assertEquals(before + 1, Clothes.getCounter());
-    }
 }
