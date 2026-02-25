@@ -45,6 +45,16 @@ public class Clothes {
     }
 
     /**
+     * Copy constructor.
+     */
+    public Clothes(Clothes other) {
+        this.color = other.color;
+        this.type = other.type;
+        this.europeanSize = other.europeanSize;
+        this.americanSize = other.americanSize;
+    }
+
+    /**
      * Default constructor.
      */
     public Clothes() {
