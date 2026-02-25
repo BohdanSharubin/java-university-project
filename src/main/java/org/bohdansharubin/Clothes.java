@@ -10,7 +10,7 @@ import java.util.Objects;
  * Allowed types and sizes are restricted to predefined constants.
  */
 public class Clothes {
-
+    public static int counter = 0;
     /** Common predefined clothing types */
     private static final String[] COMMON_TYPES;
 
@@ -42,6 +42,7 @@ public class Clothes {
         this.type = type;
         this.europeanSize = europeanSize;
         this.americanSize = americanSize;
+        counter++;
     }
 
     /**
@@ -52,12 +53,14 @@ public class Clothes {
         this.type = other.type;
         this.europeanSize = other.europeanSize;
         this.americanSize = other.americanSize;
+        counter++;
     }
 
     /**
      * Default constructor.
      */
     public Clothes() {
+        counter++;
     }
 
     /**
@@ -138,6 +141,10 @@ public class Clothes {
             throw new IllegalArgumentException("Invalid american size");
         }
         this.americanSize = americanSize;
+    }
+
+    public static int getCounter() {
+        return counter;
     }
 
     /**
