@@ -75,7 +75,8 @@ public class App {
     public static void printMenu() {
         System.out.println("1. Create a clothes");
         System.out.println("2. List all clothes");
-        System.out.println("3. Count clothes");
-        System.out.println("4. Exit");
+        System.out.println("3. Create pants");
+        System.out.println("4. Create shirt");
+        System.out.println("99. Exit");
     }
 }
