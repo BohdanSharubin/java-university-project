@@ -11,19 +11,17 @@ import java.util.Objects;
  */
 public class Clothes {
     private static int counter = 0;
-    /** Common predefined clothing types */
-    private static final String[] COMMON_TYPES;
 
     /** Common predefined American sizes */
     private static final String[] COMMON_AMERICAN_SIZES;
 
     private String color;
-    private String type;
+//    private String type;
     private int europeanSize;
     private String americanSize;
+    private ClothesType type;
 
     static {
-        COMMON_TYPES = new String[]{"PANTS", "SHIRT", "SKIRT", "HAT"};
         COMMON_AMERICAN_SIZES = new String[]{"S", "M", "L", "XL", "XXL", "XXXL"};
     }
 
@@ -36,7 +34,7 @@ public class Clothes {
      * @param americanSize   the American size (must be one of COMMON_AMERICAN_SIZES)
      * @throws IllegalArgumentException if any argument is invalid
      */
-    public Clothes(String color, String type, int europeanSize, String americanSize) {
+    public Clothes(String color, ClothesType type, int europeanSize, String americanSize) {
         isValid(color, type, europeanSize, americanSize);
         this.color = color;
         this.type = type;
@@ -86,7 +84,7 @@ public class Clothes {
     /**
      * @return the type of the clothes
      */
-    public String getType() {
+    public ClothesType getType() {
         return type;
     }
 
@@ -96,9 +94,9 @@ public class Clothes {
      * @param type the type to set (must be one of COMMON_TYPES)
      * @throws IllegalArgumentException if type is invalid
      */
-    public void setType(String type) {
-        if (!isTypeValid(type)) {
-            throw new IllegalArgumentException("Invalid type");
+    public void setType(ClothesType type) {
+        if (!isNotNull(type)) {
+            throw new IllegalArgumentException("Clothes type can't be null");
         }
         this.type = type;
     }
@@ -191,12 +189,11 @@ public class Clothes {
     /**
      * Validates all fields.
      */
-    private void isValid(String color, String type, int europeanSize, String americanSize) {
+    private void isValid(String color, ClothesType type, int europeanSize, String americanSize) {
         if (!isStringValid(color)) {
             throw new IllegalArgumentException("Color cannot be empty");
-        } else if (!isTypeValid(type)) {
-            throw new IllegalArgumentException("Type cannot be empty. Allowed types is " +
-                    Arrays.toString(COMMON_TYPES));
+        } else if (!isNotNull(type)) {
+            throw new IllegalArgumentException("Type cannot be null");
         } else if (!isEuropeanSizeValid(europeanSize)) {
             throw new IllegalArgumentException("European size has to be between 32 and 60");
         } else if (!isAmericanSizeValid(americanSize)) {
@@ -215,15 +212,8 @@ public class Clothes {
     /**
      * Checks if type is one of allowed values.
      */
-    private boolean isTypeValid(String type) {
-        if (isStringValid(type)) {
-            for (String commonType : COMMON_TYPES) {
-                if (commonType.equals(type)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    private boolean isNotNull(ClothesType type) {
+        return Objects.nonNull(type);
     }
 
     /**
