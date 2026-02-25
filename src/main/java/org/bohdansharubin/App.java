@@ -1,4 +1,6 @@
 package org.bohdansharubin;
+import org.bohdansharubin.models.Clothes;
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -56,6 +58,9 @@ public class App {
                         System.out.println(Arrays.toString(clothesArray));
                         break;
                     case 3:
+                        System.out.println("Was created " + Clothes.getCounter() + " clothes.");
+                        break;
+                    case 4:
                         isWorking = false;
                         break;
                     default:
@@ -73,6 +78,7 @@ public class App {
     public static void printMenu() {
         System.out.println("1. Create a clothes");
         System.out.println("2. List all clothes");
-        System.out.println("3. Exit");
+        System.out.println("3. Count clothes");
+        System.out.println("4. Exit");
     }
 }

@@ -1,4 +1,8 @@
 package org.bohdansharubin;
+import org.bohdansharubin.models.AmericanSize;
+import org.bohdansharubin.models.Clothes;
+import org.bohdansharubin.models.ClothesType;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -37,7 +41,6 @@ public class ClothesFactory {
             try {
                 String color;
                 String type;
-                String americanSize;
                 int europeanSize;
 
                 System.out.println("Please enter the color of the clothes: ");
@@ -45,22 +48,23 @@ public class ClothesFactory {
 
                 System.out.println("Please enter the type of the clothes: ");
                 type = input.nextLine();
+                ClothesType clothesType = ClothesType.valueOf(type.toUpperCase());
 
                 System.out.println("Please enter american size of the clothes: ");
-                americanSize = input.nextLine();
+                AmericanSize americanSize = AmericanSize.valueOf(input.nextLine().toUpperCase());
 
                 System.out.println("Please enter european size of the clothes: ");
                 europeanSize = input.nextInt();
                 input.nextLine();
 
-                clothes = new Clothes(color, type, europeanSize, americanSize);
+                clothes = new Clothes(color, clothesType, europeanSize, americanSize);
                 isCreated = true;
 
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
                 input.nextLine();
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+                System.out.println("Wrong input");
                 System.out.println("Try again");
                 input.nextLine();
             }
