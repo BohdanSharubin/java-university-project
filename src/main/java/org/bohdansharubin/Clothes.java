@@ -10,7 +10,7 @@ import java.util.Objects;
  * Allowed types and sizes are restricted to predefined constants.
  */
 public class Clothes {
-    public static int counter = 0;
+    private static int counter = 0;
     /** Common predefined clothing types */
     private static final String[] COMMON_TYPES;
 
