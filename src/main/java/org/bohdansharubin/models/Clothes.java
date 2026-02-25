@@ -1,4 +1,4 @@
-package org.bohdansharubin;
+package org.bohdansharubin.models;
 import java.util.Arrays;
 import java.util.Objects;
 
