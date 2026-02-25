@@ -1,4 +1,5 @@
 package org.bohdansharubin;
+import org.bohdansharubin.models.AmericanSize;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.models.ClothesType;
 
@@ -40,7 +41,6 @@ public class ClothesFactory {
             try {
                 String color;
                 String type;
-                String americanSize;
                 int europeanSize;
 
                 System.out.println("Please enter the color of the clothes: ");
@@ -51,7 +51,7 @@ public class ClothesFactory {
                 ClothesType clothesType = ClothesType.valueOf(type.toUpperCase());
 
                 System.out.println("Please enter american size of the clothes: ");
-                americanSize = input.nextLine();
+                AmericanSize americanSize = AmericanSize.valueOf(input.nextLine().toUpperCase());
 
                 System.out.println("Please enter european size of the clothes: ");
                 europeanSize = input.nextInt();

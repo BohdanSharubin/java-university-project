@@ -18,7 +18,7 @@ public class Clothes {
     private String color;
 //    private String type;
     private int europeanSize;
-    private String americanSize;
+    private AmericanSize americanSize;
     private ClothesType type;
 
     static {
@@ -34,7 +34,7 @@ public class Clothes {
      * @param americanSize   the American size (must be one of COMMON_AMERICAN_SIZES)
      * @throws IllegalArgumentException if any argument is invalid
      */
-    public Clothes(String color, ClothesType type, int europeanSize, String americanSize) {
+    public Clothes(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
         isValid(color, type, europeanSize, americanSize);
         this.color = color;
         this.type = type;
@@ -124,19 +124,19 @@ public class Clothes {
     /**
      * @return the American size
      */
-    public String getAmericanSize() {
+    public AmericanSize getAmericanSize() {
         return americanSize;
     }
 
     /**
      * Sets the American size.
      *
-     * @param americanSize must be one of COMMON_AMERICAN_SIZES
+     * @param americanSize must be one of AmericanSize enum
      * @throws IllegalArgumentException if size is invalid
      */
-    public void setAmericanSize(String americanSize) {
-        if (!isAmericanSizeValid(americanSize)) {
-            throw new IllegalArgumentException("Invalid american size");
+    public void setAmericanSize(AmericanSize americanSize) {
+        if (!isNotNull(americanSize)) {
+            throw new IllegalArgumentException("American size can't be null");
         }
         this.americanSize = americanSize;
     }
@@ -189,14 +189,14 @@ public class Clothes {
     /**
      * Validates all fields.
      */
-    private void isValid(String color, ClothesType type, int europeanSize, String americanSize) {
+    private void isValid(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
         if (!isStringValid(color)) {
             throw new IllegalArgumentException("Color cannot be empty");
         } else if (!isNotNull(type)) {
             throw new IllegalArgumentException("Type cannot be null");
         } else if (!isEuropeanSizeValid(europeanSize)) {
             throw new IllegalArgumentException("European size has to be between 32 and 60");
-        } else if (!isAmericanSizeValid(americanSize)) {
+        } else if (!isNotNull(americanSize)) {
             throw new IllegalArgumentException("American size has to be of " +
                     Arrays.toString(COMMON_AMERICAN_SIZES));
         }
@@ -210,24 +210,10 @@ public class Clothes {
     }
 
     /**
-     * Checks if type is one of allowed values.
+     * Checks if object is not null.
      */
-    private boolean isNotNull(ClothesType type) {
+    private boolean isNotNull(Object type) {
         return Objects.nonNull(type);
-    }
-
-    /**
-     * Checks if American size is valid.
-     */
-    private boolean isAmericanSizeValid(String size) {
-        if (isStringValid(size)) {
-            for (String commonSizes : COMMON_AMERICAN_SIZES) {
-                if (commonSizes.equals(size)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**
