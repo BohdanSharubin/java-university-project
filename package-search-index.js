@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.bohdansharubin"},{"l":"org.bohdansharubin.enums"},{"l":"org.bohdansharubin.models"}];updateSearchResults();
