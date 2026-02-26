@@ -29,6 +29,12 @@ jobs:
         cache: maven
     - name: Build Javadoc with Maven
       run: mvn clean javadoc:javadoc
+      
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-javadoc@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./target/site/apidocs
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
