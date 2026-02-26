@@ -22,6 +22,10 @@ public class ClothesService {
         return clothesList;
     }
 
+    public void addClothes(Clothes clothes) {
+        clothesList.add(clothes);
+    }
+
     public List<Clothes> findClothesByType(ClothesType clothesType) {
         Iterator<Clothes> iterator = clothesList.iterator();
         List<Clothes> filteredList = new ArrayList<>();
