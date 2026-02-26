@@ -2,6 +2,7 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 
+import java.io.*;
 import java.util.Objects;
 
 /**
@@ -11,8 +12,10 @@ import java.util.Objects;
  * The class provides validation for all fields to ensure only valid data is assigned.
  * Allowed types and sizes are restricted to predefined constants.
  */
-public class Clothes {
+public class Clothes implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
     private String color;
     private int europeanSize;
     private AmericanSize americanSize;
@@ -173,6 +176,40 @@ public class Clothes {
     }
 
     /**
+     * Custom deserialization logic for this class.
+     * <p>
+     * This method is invoked by the serialization runtime during
+     * deserialization. It restores the object's state using the
+     * default deserialization mechanism.
+     *
+     * @param in the {@link ObjectInputStream} used to read the object data
+     * @throws IOException if an I/O error occurs while reading from the stream
+     * @throws ClassNotFoundException if the class of a serialized object
+     *         cannot be found
+     */
+    @Serial
+    private void readObject(ObjectInputStream in)
+            throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+    }
+
+    /**
+     * Custom serialization logic for this class.
+     * <p>
+     * This method is invoked by the serialization runtime during
+     * serialization. It writes the object's state using the
+     * default serialization mechanism.
+     *
+     * @param out the {@link ObjectOutputStream} used to write the object data
+     * @throws IOException if an I/O error occurs while writing to the stream
+     */
+    @Serial
+    private void writeObject(ObjectOutputStream out)
+            throws IOException {
+        out.defaultWriteObject();
+    }
+
+    /**
      * Validates all fields.
      */
     private void isValid(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
@@ -186,6 +223,8 @@ public class Clothes {
             throw new IllegalArgumentException("American size cannot be null ");
         }
     }
+
+
 
     /**
      * Checks if string is valid (not null and not blank).
