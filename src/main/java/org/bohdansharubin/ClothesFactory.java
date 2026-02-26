@@ -45,7 +45,7 @@ public class ClothesFactory {
                 System.out.println("Please enter the color of the clothes: ");
                 color = input.nextLine();
 
-                System.out.println("Please enter american size of the clothes: ");
+                System.out.println("Please enter american size of the clothes: " + Arrays.toString(AmericanSize.values()));
                 AmericanSize americanSize = AmericanSize.valueOf(input.nextLine().toUpperCase());
 
                 System.out.println("Please enter european size of the clothes: ");
