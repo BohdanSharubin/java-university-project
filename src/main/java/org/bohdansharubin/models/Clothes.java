@@ -10,20 +10,11 @@ import java.util.Objects;
  * Allowed types and sizes are restricted to predefined constants.
  */
 public class Clothes {
-    private static int counter = 0;
-
-    /** Common predefined American sizes */
-    private static final String[] COMMON_AMERICAN_SIZES;
 
     private String color;
-//    private String type;
     private int europeanSize;
     private AmericanSize americanSize;
     private ClothesType type;
-
-    static {
-        COMMON_AMERICAN_SIZES = new String[]{"S", "M", "L", "XL", "XXL", "XXXL"};
-    }
 
     /**
      * Constructs a Clothes object with all parameters.
@@ -40,7 +31,6 @@ public class Clothes {
         this.type = type;
         this.europeanSize = europeanSize;
         this.americanSize = americanSize;
-        counter++;
     }
 
     /**
@@ -51,14 +41,12 @@ public class Clothes {
         this.type = other.type;
         this.europeanSize = other.europeanSize;
         this.americanSize = other.americanSize;
-        counter++;
     }
 
     /**
      * Default constructor.
      */
     public Clothes() {
-        counter++;
     }
 
     /**
@@ -141,10 +129,6 @@ public class Clothes {
         this.americanSize = americanSize;
     }
 
-    public static int getCounter() {
-        return counter;
-    }
-
     /**
      * Compares this object with another for equality.
      *
@@ -197,8 +181,7 @@ public class Clothes {
         } else if (!isEuropeanSizeValid(europeanSize)) {
             throw new IllegalArgumentException("European size has to be between 32 and 60");
         } else if (!isNotNull(americanSize)) {
-            throw new IllegalArgumentException("American size has to be of " +
-                    Arrays.toString(COMMON_AMERICAN_SIZES));
+            throw new IllegalArgumentException("American size cannot be null ");
         }
     }
 

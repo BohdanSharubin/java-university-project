@@ -1,9 +1,10 @@
 package org.bohdansharubin;
 import org.bohdansharubin.models.Clothes;
+import org.bohdansharubin.models.ClothesType;
+import org.bohdansharubin.models.Pants;
+import org.bohdansharubin.models.Shirt;
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Entry point of the application.
@@ -32,11 +33,11 @@ public class App {
         int number = input.nextInt();
         input.nextLine();
 
-        Clothes[] clothesArray = new Clothes[number];
+        List<Clothes> clothesList = new ArrayList<>();
 
         for (int i = 0; i < number; i++) {
-            clothesArray[i] = ClothesFactory.createClothes(input);
-            System.out.println(clothesArray[i]);
+            clothesList.add(ClothesFactory.createClothes(input, ClothesType.CLOTHES));
+            System.out.println(clothesList);
         }
         boolean isWorking = true;
         while(isWorking){
@@ -46,25 +47,24 @@ public class App {
                 int choice = input.nextInt();
                 input.nextLine();
                 switch (choice) {
-                    case 1:
-                        Clothes clothes = ClothesFactory.createClothes(input);
-                        Clothes[] newArray = new Clothes[clothesArray.length + 1];
-                        System.arraycopy(clothesArray, 0, newArray, 0, clothesArray.length);
-                        clothesArray = newArray;
-                        clothesArray[clothesArray.length - 1] = clothes;
+                    case 1 -> {
+                        Clothes clothes = ClothesFactory.createClothes(input, ClothesType.CLOTHES);
+                        clothesList.add(clothes);
                         System.out.println("Clothes created");
-                        break;
-                    case 2:
-                        System.out.println(Arrays.toString(clothesArray));
-                        break;
-                    case 3:
-                        System.out.println("Was created " + Clothes.getCounter() + " clothes.");
-                        break;
-                    case 4:
-                        isWorking = false;
-                        break;
-                    default:
-                        System.out.println("Wrong choice");
+                    }
+                    case 2 -> System.out.println(clothesList);
+                    case 3 -> {
+                        Pants pants = (Pants) ClothesFactory.createClothes(input, ClothesType.PANTS);
+                        clothesList.add(pants);
+                        System.out.println("Pants created");
+                    }
+                    case 4 -> {
+                        Shirt shirt = (Shirt) ClothesFactory.createClothes(input, ClothesType.SHIRT);
+                        clothesList.add(shirt);
+                        System.out.println("Shirt created");
+                    }
+                    case 99 -> isWorking = false;
+                    default -> System.out.println("Wrong choice");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
@@ -78,7 +78,8 @@ public class App {
     public static void printMenu() {
         System.out.println("1. Create a clothes");
         System.out.println("2. List all clothes");
-        System.out.println("3. Count clothes");
-        System.out.println("4. Exit");
+        System.out.println("3. Create pants");
+        System.out.println("4. Create shirt");
+        System.out.println("99. Exit");
     }
 }
