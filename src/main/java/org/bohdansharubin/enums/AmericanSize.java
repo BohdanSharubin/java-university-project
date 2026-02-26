@@ -1,4 +1,4 @@
-package org.bohdansharubin.models;
+package org.bohdansharubin.enums;
 
 /**
  * Represents American clothing sizes.

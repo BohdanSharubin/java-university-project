@@ -1,8 +1,8 @@
 package org.bohdansharubin;
 
-import org.bohdansharubin.models.AmericanSize;
+import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.models.Clothes;
-import org.bohdansharubin.models.ClothesType;
+import org.bohdansharubin.enums.ClothesType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

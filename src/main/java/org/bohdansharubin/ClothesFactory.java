@@ -1,6 +1,8 @@
 package org.bohdansharubin;
+import org.bohdansharubin.enums.*;
 import org.bohdansharubin.models.*;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -43,15 +45,35 @@ public class ClothesFactory {
                 System.out.println("Please enter the color of the clothes: ");
                 color = input.nextLine();
 
-                System.out.println("Please enter american size of the clothes: ");
+                System.out.println("Please enter american size of the clothes: " + Arrays.toString(AmericanSize.values()));
                 AmericanSize americanSize = AmericanSize.valueOf(input.nextLine().toUpperCase());
 
                 System.out.println("Please enter european size of the clothes: ");
                 europeanSize = input.nextInt();
                 input.nextLine();
                 clothes =  switch (clothesType) {
-                    case PANTS -> new Pants(color, europeanSize, americanSize);
-                    case SHIRT -> new Shirt(color, europeanSize, americanSize);
+                    case PANTS -> {
+                        System.out.println("Enter is pants has pockets(true/false):");
+                        boolean hasPockets = input.nextBoolean();
+                        yield new Pants(color, europeanSize, americanSize, hasPockets);
+                    }
+                    case SHIRT -> {
+                        System.out.println("Enter shirt sleeve length " + Arrays.toString(SleeveLength.values()));
+                        SleeveLength sleeveLength = SleeveLength.valueOf(input.nextLine());
+                        yield new Shirt(color, europeanSize, americanSize, sleeveLength);
+                    }
+                    case HAT -> {
+                        System.out.println("Enter if hat is waterproof(true/false):");
+                        boolean hasWaterproof = input.nextBoolean();
+                        System.out.println("Enter hat type " +  Arrays.toString(HatType.values()));
+                        HatType hatType = HatType.valueOf(input.nextLine().toUpperCase());
+                        yield new Hat(color, europeanSize, americanSize, hasWaterproof, hatType);
+                    }
+                    case SKIRT -> {
+                        System.out.println("Enter skirt length " + Arrays.toString(SkirtLength.values()));
+                        SkirtLength skirtLength = SkirtLength.valueOf(input.nextLine().toUpperCase());
+                        yield new Skirt(color, europeanSize, americanSize, skirtLength);
+                    }
                     default -> {
                         System.out.println("Please enter the type of the clothes: ");
                         String type = input.nextLine();
