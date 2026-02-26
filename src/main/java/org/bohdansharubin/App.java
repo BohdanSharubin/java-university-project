@@ -1,8 +1,6 @@
 package org.bohdansharubin;
-import org.bohdansharubin.models.Clothes;
+import org.bohdansharubin.models.*;
 import org.bohdansharubin.enums.ClothesType;
-import org.bohdansharubin.models.Pants;
-import org.bohdansharubin.models.Shirt;
 
 import java.util.*;
 
@@ -63,6 +61,16 @@ public class App {
                         clothesList.add(shirt);
                         System.out.println("Shirt created");
                     }
+                    case 5 -> {
+                        Hat hat = (Hat) ClothesFactory.createClothes(input, ClothesType.HAT);
+                        clothesList.add(hat);
+                        System.out.println("Hat created");
+                    }
+                    case 6 -> {
+                        Skirt skirt = (Skirt)  ClothesFactory.createClothes(input, ClothesType.SKIRT);
+                        clothesList.add(skirt);
+                        System.out.println("Skirt created");
+                    }
                     case 99 -> isWorking = false;
                     default -> System.out.println("Wrong choice");
                 }
@@ -80,6 +88,8 @@ public class App {
         System.out.println("2. List all clothes");
         System.out.println("3. Create pants");
         System.out.println("4. Create shirt");
+        System.out.println("5. Create hat");
+        System.out.println("6. Create skirt");
         System.out.println("99. Exit");
     }
 }
