@@ -54,7 +54,7 @@ public class ClothesFactory {
                 clothes =  switch (clothesType) {
                     case PANTS -> {
                         System.out.println("Enter is pants has pockets(true/false):");
-                        boolean hasPockets = input.nextBoolean();
+                        boolean hasPockets = Boolean.parseBoolean(input.nextLine());
                         yield new Pants(color, europeanSize, americanSize, hasPockets);
                     }
                     case SHIRT -> {
@@ -64,7 +64,7 @@ public class ClothesFactory {
                     }
                     case HAT -> {
                         System.out.println("Enter if hat is waterproof(true/false):");
-                        boolean hasWaterproof = input.nextBoolean();
+                        boolean hasWaterproof = Boolean.parseBoolean(input.nextLine());
                         System.out.println("Enter hat type " +  Arrays.toString(HatType.values()));
                         HatType hatType = HatType.valueOf(input.nextLine().toUpperCase());
                         yield new Hat(color, europeanSize, americanSize, hasWaterproof, hatType);
