@@ -2,6 +2,8 @@ package org.bohdansharubin;
 import org.bohdansharubin.models.*;
 import org.bohdansharubin.enums.ClothesType;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -22,21 +24,15 @@ public class App {
      *
      * @param args command-line arguments (not used)
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Hello in Clothes App");
         System.out.println("Init clothes");
+        final String inputFileName = "input.txt";
+
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter the number of clothes: ");
-        int number = input.nextInt();
-        input.nextLine();
+        List<Clothes> clothesList = loadFromDisk(inputFileName);
 
-        List<Clothes> clothesList = new ArrayList<>();
-
-        for (int i = 0; i < number; i++) {
-            clothesList.add(ClothesFactory.createClothes(input, ClothesType.CLOTHES));
-            System.out.println(clothesList);
-        }
         boolean isWorking = true;
         while(isWorking){
 
@@ -71,7 +67,10 @@ public class App {
                         clothesList.add(skirt);
                         System.out.println("Skirt created");
                     }
-                    case 99 -> isWorking = false;
+                    case 99 -> {
+                        isWorking = false;
+                        Serializer.saveObject(clothesList, inputFileName);
+                    }
                     default -> System.out.println("Wrong choice");
                 }
             } catch (InputMismatchException e) {
@@ -83,6 +82,9 @@ public class App {
         input.close();
     }
 
+    /**
+     * Method prints console menu
+     */
     public static void printMenu() {
         System.out.println("1. Create a clothes");
         System.out.println("2. List all clothes");
@@ -91,5 +93,21 @@ public class App {
         System.out.println("5. Create hat");
         System.out.println("6. Create skirt");
         System.out.println("99. Exit");
+    }
+
+    /**
+     * Method load from file clothes data
+     * @param filename file name via app download saved list of clothes
+     * @return list of clothes from file or empty list
+     */
+    public static List<Clothes> loadFromDisk(String filename) {
+        try {
+           List<Clothes> list = (List<Clothes>) Deserializer.loadObject(filename);
+            System.out.println("Loaded " + list.size() + " clothes");
+           return list;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Can't find file " + filename);
+        }
+        return new ArrayList<>();
     }
 }
