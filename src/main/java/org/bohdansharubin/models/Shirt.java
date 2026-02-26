@@ -1,19 +1,28 @@
 package org.bohdansharubin.models;
 
+import org.bohdansharubin.enums.AmericanSize;
+import org.bohdansharubin.enums.ClothesType;
+import org.bohdansharubin.enums.SleeveLength;
 /**
  * Represents a Shirt item.
  * <p>
- * A Shirt is a specific type of {@link Clothes} whose type is always {@link ClothesType#SHIRT}.
- * The type cannot be changed after creation.
+ * A Shirt is a concrete subclass of {@link Clothes} with a fixed
+ * {@link ClothesType#SHIRT} type. The type of Shirt instance
+ * cannot be changed after creation.
+ * <p>
+ * Additional characteristic specific to Shirt is its {@link SleeveLength}.
  */
 public class Shirt extends Clothes {
 
+    private SleeveLength sleeveLength;
+
     /**
-     * Constructs a Shirt with specified parameters.
+     * Constructs a Shirt with the specified basic parameters.
      *
-     * @param color        the color of the shirt (must not be null or blank)
-     * @param europeanSize the European size (must be within valid range)
-     * @param americanSize the American size (must not be null)
+     * @param color        the color of the shirt; must not be {@code null} or blank
+     * @param europeanSize the European size; must be within the valid range
+     * @param americanSize the American size; must not be {@code null}
+     *
      * @throws IllegalArgumentException if any argument is invalid
      */
     public Shirt(String color, int europeanSize, AmericanSize americanSize) {
@@ -21,9 +30,29 @@ public class Shirt extends Clothes {
     }
 
     /**
-     * Copy constructor.
+     * Constructs a Shirt with the specified parameters including sleeve length.
      *
-     * @param other the Clothes object to copy from
+     * @param color        the color of the shirt; must not be {@code null} or blank
+     * @param europeanSize the European size; must be within the valid range
+     * @param americanSize the American size; must not be {@code null}
+     * @param sleeveLength the sleeve length; may be {@code null} if not specified
+     *
+     * @throws IllegalArgumentException if any argument is invalid
+     */
+    public Shirt(String color, int europeanSize, AmericanSize americanSize, SleeveLength sleeveLength) {
+        super(color, ClothesType.SHIRT, europeanSize, americanSize);
+        if(sleeveLength == null) {
+            throw new  IllegalArgumentException("SleeveLength can't be null");
+        }
+        this.sleeveLength = sleeveLength;
+    }
+
+    /**
+     * Copy constructor.
+     * <p>
+     * Creates a new Shirt instance by copying the state of the given {@link Clothes} object.
+     *
+     * @param other the Clothes object to copy from; must not be {@code null}
      */
     public Shirt(Clothes other) {
         super(other);
@@ -31,8 +60,32 @@ public class Shirt extends Clothes {
 
     /**
      * Default constructor.
+     * <p>
+     * Intended for frameworks or serialization mechanisms.
      */
     public Shirt() {
+    }
+
+    /**
+     * Returns the sleeve length of this Shirt.
+     *
+     * @return the sleeve length, or {@code null} if not specified
+     */
+    public SleeveLength getSleeveLength() {
+        return sleeveLength;
+    }
+
+    /**
+     * Sets the sleeve length of this Shirt.
+     *
+     * @param sleeveLength the sleeve length to set
+     * @throws IllegalArgumentException if sleeveLength is null
+     */
+    public void setSleeveLength(SleeveLength sleeveLength) {
+        if(sleeveLength == null) {
+            throw new  IllegalArgumentException("SleeveLength can't be null");
+        }
+        this.sleeveLength = sleeveLength;
     }
 
     /**
@@ -48,9 +101,9 @@ public class Shirt extends Clothes {
     }
 
     /**
-     * Returns string representation of the Shirt.
+     * Returns a string representation of this Shirt.
      *
-     * @return formatted string with shirt details
+     * @return a formatted string containing shirt details
      */
     @Override
     public String toString() {
@@ -59,6 +112,7 @@ public class Shirt extends Clothes {
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
                 ", americanSize='" + getAmericanSize() + '\'' +
+                ", sleeveLength=" + getSleeveLength() +
                 '}';
     }
 }
