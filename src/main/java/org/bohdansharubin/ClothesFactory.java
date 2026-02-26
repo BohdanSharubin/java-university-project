@@ -1,4 +1,6 @@
 package org.bohdansharubin;
+import org.bohdansharubin.enums.AmericanSize;
+import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.models.*;
 
 import java.util.InputMismatchException;

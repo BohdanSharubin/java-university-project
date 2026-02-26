@@ -1,5 +1,7 @@
 package org.bohdansharubin.models;
-import java.util.Arrays;
+import org.bohdansharubin.enums.AmericanSize;
+import org.bohdansharubin.enums.ClothesType;
+
 import java.util.Objects;
 
 /**

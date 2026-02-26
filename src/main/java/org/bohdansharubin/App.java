@@ -1,6 +1,6 @@
 package org.bohdansharubin;
 import org.bohdansharubin.models.Clothes;
-import org.bohdansharubin.models.ClothesType;
+import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.models.Pants;
 import org.bohdansharubin.models.Shirt;
 
