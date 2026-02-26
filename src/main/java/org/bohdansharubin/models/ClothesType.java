@@ -15,5 +15,8 @@ public enum ClothesType {
     SKIRT,
 
     /** Upper body clothing, such as shirts */
-    SHIRT
+    SHIRT,
+
+    /** General name for clothes */
+    CLOTHES
 }
