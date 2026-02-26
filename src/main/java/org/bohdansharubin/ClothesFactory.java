@@ -1,7 +1,5 @@
 package org.bohdansharubin;
-import org.bohdansharubin.models.AmericanSize;
-import org.bohdansharubin.models.Clothes;
-import org.bohdansharubin.models.ClothesType;
+import org.bohdansharubin.models.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -30,25 +28,20 @@ public class ClothesFactory {
      *     <li>{@link InputMismatchException} – when numeric input is invalid</li>
      *     <li>{@link IllegalArgumentException} – when validation fails in {@link Clothes}</li>
      * </ul>
-     *
+     * @param clothesType is which type of object method needs to be created
      * @return a valid {@link Clothes} object based on user input
      */
-    public static Clothes createClothes(Scanner input) {
+    public static Clothes createClothes(Scanner input, ClothesType clothesType) {
         Clothes clothes = null;
         boolean isCreated = false;
 
         while (!isCreated) {
             try {
                 String color;
-                String type;
                 int europeanSize;
 
                 System.out.println("Please enter the color of the clothes: ");
                 color = input.nextLine();
-
-                System.out.println("Please enter the type of the clothes: ");
-                type = input.nextLine();
-                ClothesType clothesType = ClothesType.valueOf(type.toUpperCase());
 
                 System.out.println("Please enter american size of the clothes: ");
                 AmericanSize americanSize = AmericanSize.valueOf(input.nextLine().toUpperCase());
@@ -56,8 +49,16 @@ public class ClothesFactory {
                 System.out.println("Please enter european size of the clothes: ");
                 europeanSize = input.nextInt();
                 input.nextLine();
-
-                clothes = new Clothes(color, clothesType, europeanSize, americanSize);
+                clothes =  switch (clothesType) {
+                    case PANTS -> new Pants(color, europeanSize, americanSize);
+                    case SHIRT -> new Shirt(color, europeanSize, americanSize);
+                    default -> {
+                        System.out.println("Please enter the type of the clothes: ");
+                        String type = input.nextLine();
+                        clothesType = ClothesType.valueOf(type.toUpperCase());
+                        yield new Clothes(color, clothesType, europeanSize, americanSize);
+                    }
+                };
                 isCreated = true;
 
             } catch (InputMismatchException e) {
@@ -67,6 +68,8 @@ public class ClothesFactory {
                 System.out.println("Wrong input");
                 System.out.println("Try again");
                 input.nextLine();
+            } catch (UnsupportedOperationException e) {
+                System.out.println(e.getMessage());
             }
         }
 
