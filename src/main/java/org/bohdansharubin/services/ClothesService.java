@@ -137,8 +137,8 @@ public class ClothesService {
      * @return sorted list of clothes with comparator
      */
     public List<Clothes> getSortedListByComparator(Comparator<Clothes> comparator) {
-        return clothesList.stream()
-                .sorted(comparator)
-                .toList();
+        List<Clothes> copy = new ArrayList<>(clothesList);
+        Collections.sort(copy, comparator);
+        return copy;
     }
 }
