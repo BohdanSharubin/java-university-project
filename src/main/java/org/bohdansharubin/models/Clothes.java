@@ -4,15 +4,17 @@ import org.bohdansharubin.enums.ClothesType;
 
 import java.io.*;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Represents a piece of clothing with basic attributes such as color, type,
  * European size, and American size.
+ * Also has unique identifier uuid;
  * <p>
  * The class provides validation for all fields to ensure only valid data is assigned.
  * Allowed types and sizes are restricted to predefined constants.
  */
-public abstract class Clothes implements Serializable, Comparable<Clothes> {
+public abstract class Clothes implements Serializable, Comparable<Clothes>, Identifiable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -20,6 +22,7 @@ public abstract class Clothes implements Serializable, Comparable<Clothes> {
     private int europeanSize;
     private AmericanSize americanSize;
     private ClothesType type;
+    private final UUID uuid;
 
     /**
      * Constructs a Clothes object with all parameters.
@@ -30,28 +33,40 @@ public abstract class Clothes implements Serializable, Comparable<Clothes> {
      * @param americanSize   the American size (must be one of COMMON_AMERICAN_SIZES)
      * @throws IllegalArgumentException if any argument is invalid
      */
-    public Clothes(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
+    protected Clothes(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
         isValid(color, type, europeanSize, americanSize);
         this.color = color;
         this.type = type;
         this.europeanSize = europeanSize;
         this.americanSize = americanSize;
+        this.uuid = UUID.randomUUID();
     }
 
     /**
      * Copy constructor.
      */
-    public Clothes(Clothes other) {
+    protected Clothes(Clothes other) {
         this.color = other.color;
         this.type = other.type;
         this.europeanSize = other.europeanSize;
         this.americanSize = other.americanSize;
+        this.uuid = other.uuid;
     }
 
     /**
      * Default constructor.
      */
-    public Clothes() {
+    protected Clothes() {
+        this.uuid = UUID.randomUUID();
+    }
+
+    /**
+     *
+     * @return the uuid of the clothes
+     */
+    @Override
+    public UUID getUuid() {
+        return uuid;
     }
 
     /**
@@ -155,6 +170,7 @@ public abstract class Clothes implements Serializable, Comparable<Clothes> {
     @Override
     public String toString() {
         return "Clothes{" +
+                "uuid=" + uuid +
                 "color='" + color + '\'' +
                 ", type='" + type + '\'' +
                 ", europeanSize=" + europeanSize +
