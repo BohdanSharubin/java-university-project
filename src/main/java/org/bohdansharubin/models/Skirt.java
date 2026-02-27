@@ -97,6 +97,7 @@ public class Skirt extends Clothes {
     @Override
     public String toString() {
         return "Skirt{" +
+                "uuid=" + getUuid() +
                 "color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +

@@ -120,6 +120,7 @@ public class Hat extends Clothes {
     @Override
     public String toString() {
         return "Hat{" +
+                "uuid=" + getUuid() +
                 "color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +

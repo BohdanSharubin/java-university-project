@@ -81,6 +81,7 @@ public class Pants extends Clothes {
     @Override
     public String toString() {
         return "Pants{" +
+                "uuid=" + getUuid() +
                 "color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
