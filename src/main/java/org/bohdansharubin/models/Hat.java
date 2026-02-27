@@ -113,18 +113,6 @@ public class Hat extends Clothes {
     }
 
     /**
-     * This operation is not supported because a Hat
-     * always has the type {@link ClothesType#HAT}.
-     *
-     * @param type ignored
-     * @throws UnsupportedOperationException always thrown
-     */
-    @Override
-    public void setType(ClothesType type) {
-        throw new UnsupportedOperationException("Type of the object is always HAT");
-    }
-
-    /**
      * Returns a string representation of this Hat.
      *
      * @return a formatted string containing hat details

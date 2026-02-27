@@ -74,19 +74,6 @@ public class Pants extends Clothes {
     }
 
     /**
-     * This operation is not supported because Pants
-     * always have the type {@link ClothesType#PANTS}.
-     *
-     * @param type ignored
-     * @throws UnsupportedOperationException always thrown
-     */
-
-    @Override
-    public void setType(ClothesType type) {
-        throw new UnsupportedOperationException("Type of this object is always PANTS");
-    }
-
-    /**
      * Returns string representation of the Pants.
      *
      * @return formatted string with pants details
