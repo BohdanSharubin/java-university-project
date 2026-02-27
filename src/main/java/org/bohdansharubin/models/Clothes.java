@@ -12,7 +12,7 @@ import java.util.Objects;
  * The class provides validation for all fields to ensure only valid data is assigned.
  * Allowed types and sizes are restricted to predefined constants.
  */
-public class Clothes implements Serializable {
+public abstract class Clothes implements Serializable, Comparable<Clothes> {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -79,19 +79,6 @@ public class Clothes implements Serializable {
      */
     public ClothesType getType() {
         return type;
-    }
-
-    /**
-     * Sets the type of the clothes.
-     *
-     * @param type the type to set (must be one of COMMON_TYPES)
-     * @throws IllegalArgumentException if type is invalid
-     */
-    public void setType(ClothesType type) {
-        if (!isNotNull(type)) {
-            throw new IllegalArgumentException("Clothes type can't be null");
-        }
-        this.type = type;
     }
 
     /**
@@ -173,6 +160,17 @@ public class Clothes implements Serializable {
                 ", europeanSize=" + europeanSize +
                 ", americanSize='" + americanSize + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Clothes o) {
+        if(getEuropeanSize() > o.getEuropeanSize()) {
+            return 1;
+        } else if(getEuropeanSize() < o.getEuropeanSize() ) {
+            return -1;
+        } else {
+            return getColor().compareTo(o.getColor());
+        }
     }
 
     /**
