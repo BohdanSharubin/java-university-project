@@ -4,6 +4,8 @@ import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.SleeveLength;
 
+import java.util.Objects;
+
 /**
  * Represents a Pants item.
  * <p>
@@ -73,6 +75,19 @@ public class Pants extends Clothes {
         this.hasPockets = hasPockets;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Pants pants = (Pants) o;
+        return hasPockets == pants.hasPockets;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), hasPockets);
+    }
+
     /**
      * Returns string representation of the Pants.
      *
@@ -81,6 +96,7 @@ public class Pants extends Clothes {
     @Override
     public String toString() {
         return "Pants{" +
+                "uuid=" + getUuid() +
                 "color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +

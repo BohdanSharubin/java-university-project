@@ -3,6 +3,9 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.HatType;
+
+import java.util.Objects;
+
 /**
  * Represents a Hat item.
  * <p>
@@ -112,6 +115,19 @@ public class Hat extends Clothes {
         this.hatType = hatType;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Hat hat = (Hat) o;
+        return isWaterProof == hat.isWaterProof && hatType == hat.hatType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), isWaterProof, hatType);
+    }
+
     /**
      * Returns a string representation of this Hat.
      *
@@ -120,6 +136,7 @@ public class Hat extends Clothes {
     @Override
     public String toString() {
         return "Hat{" +
+                "uuid=" + getUuid() +
                 "color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +

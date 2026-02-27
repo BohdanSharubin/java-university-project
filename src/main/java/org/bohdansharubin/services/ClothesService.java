@@ -4,10 +4,7 @@ import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.models.Clothes;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Service class responsible for managing and searching {@link Clothes} objects.
@@ -140,5 +137,18 @@ public class ClothesService {
         List<Clothes> copy = new ArrayList<>(clothesList);
         Collections.sort(copy, comparator);
         return copy;
+    }
+
+    /**
+     * Finds clothes by given uuid
+     * @return Optional of clothes with given uuid or empty optional
+     */
+    public Optional<Clothes> findClothesByUuid(UUID uuid) {
+        for (Clothes clothes : clothesList) {
+            if (clothes.getUuid().equals(uuid)) {
+                return Optional.of(clothes);
+            }
+        }
+        return Optional.empty();
     }
 }

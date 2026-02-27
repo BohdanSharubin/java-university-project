@@ -3,6 +3,9 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.SleeveLength;
+
+import java.util.Objects;
+
 /**
  * Represents a Shirt item.
  * <p>
@@ -88,6 +91,19 @@ public class Shirt extends Clothes {
         this.sleeveLength = sleeveLength;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Shirt shirt = (Shirt) o;
+        return sleeveLength == shirt.sleeveLength;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), sleeveLength);
+    }
+
     /**
      * Returns a string representation of this Shirt.
      *
@@ -96,6 +112,7 @@ public class Shirt extends Clothes {
     @Override
     public String toString() {
         return "Shirt{" +
+                "uuid=" + getUuid() +
                 "color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
