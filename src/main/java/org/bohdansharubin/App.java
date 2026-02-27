@@ -1,110 +1,64 @@
 package org.bohdansharubin;
+import org.bohdansharubin.controllers.MainController;
+import org.bohdansharubin.utils.Deserializer;
+import org.bohdansharubin.utils.Serializer;
 import org.bohdansharubin.models.*;
-import org.bohdansharubin.enums.ClothesType;
+import org.bohdansharubin.services.ClothesService;
+import org.bohdansharubin.views.MainView;
+import org.bohdansharubin.views.View;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-
 /**
- * Entry point of the application.
+ * Entry point of the Clothes application.
  * <p>
- * This class is responsible for:
+ * Responsible for:
  * <ul>
- *     <li>Reading the number of clothes from user input</li>
- *     <li>Creating an array of {@link Clothes}</li>
- *     <li>Delegating object creation to {@link ClothesFactory}</li>
- *     <li>Displaying created objects</li>
+ *     <li>Initializing application components</li>
+ *     <li>Loading saved clothes data from disk</li>
+ *     <li>Starting the main application controller</li>
+ *     <li>Saving data before application shutdown</li>
  * </ul>
  */
 public class App {
 
     /**
-     * Main method that starts the program.
+     * Starts the application.
      *
      * @param args command-line arguments (not used)
+     * @throws IOException if saving data fails
+     * @throws ClassNotFoundException if loaded data has invalid format
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         System.out.println("Hello in Clothes App");
         System.out.println("Init clothes");
-        final String inputFileName = "input.txt";
 
+        final String inputFileName = "input.txt";
         Scanner input = new Scanner(System.in);
 
         List<Clothes> clothesList = loadFromDisk(inputFileName);
 
-        boolean isWorking = true;
-        while(isWorking){
+        final ClothesService service = new ClothesService(clothesList);
+        final View view = new MainView();
+        MainController controller = new MainController(view, service, input);
 
-            try {
-                printMenu();
-                int choice = input.nextInt();
-                input.nextLine();
-                switch (choice) {
-                    case 1 -> {
-                        Clothes clothes = ClothesFactory.createClothes(input, ClothesType.CLOTHES);
-                        clothesList.add(clothes);
-                        System.out.println("Clothes created");
-                    }
-                    case 2 -> System.out.println(clothesList);
-                    case 3 -> {
-                        Pants pants = (Pants) ClothesFactory.createClothes(input, ClothesType.PANTS);
-                        clothesList.add(pants);
-                        System.out.println("Pants created");
-                    }
-                    case 4 -> {
-                        Shirt shirt = (Shirt) ClothesFactory.createClothes(input, ClothesType.SHIRT);
-                        clothesList.add(shirt);
-                        System.out.println("Shirt created");
-                    }
-                    case 5 -> {
-                        Hat hat = (Hat) ClothesFactory.createClothes(input, ClothesType.HAT);
-                        clothesList.add(hat);
-                        System.out.println("Hat created");
-                    }
-                    case 6 -> {
-                        Skirt skirt = (Skirt)  ClothesFactory.createClothes(input, ClothesType.SKIRT);
-                        clothesList.add(skirt);
-                        System.out.println("Skirt created");
-                    }
-                    case 99 -> {
-                        isWorking = false;
-                        Serializer.saveObject(clothesList, inputFileName);
-                    }
-                    default -> System.out.println("Wrong choice");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input");
-                input.nextLine();
-            }
-        }
+        controller.run();
 
+        Serializer.saveObject(service.getClothesList(), inputFileName);
         input.close();
     }
 
     /**
-     * Method prints console menu
-     */
-    public static void printMenu() {
-        System.out.println("1. Create a clothes");
-        System.out.println("2. List all clothes");
-        System.out.println("3. Create pants");
-        System.out.println("4. Create shirt");
-        System.out.println("5. Create hat");
-        System.out.println("6. Create skirt");
-        System.out.println("99. Exit");
-    }
-
-    /**
-     * Method load from file clothes data
-     * @param filename file name via app download saved list of clothes
-     * @return list of clothes from file or empty list
+     * Loads clothes data from file.
+     *
+     * @param filename name of the file containing serialized clothes list
+     * @return list of clothes if file exists and is valid, otherwise empty list
      */
     public static List<Clothes> loadFromDisk(String filename) {
         try {
-           List<Clothes> list = (List<Clothes>) Deserializer.loadObject(filename);
+            List<Clothes> list = (List<Clothes>) Deserializer.loadObject(filename);
             System.out.println("Loaded " + list.size() + " clothes");
-           return list;
+            return list;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Can't find file " + filename);
         }
