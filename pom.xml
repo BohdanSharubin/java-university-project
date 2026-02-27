@@ -41,12 +41,12 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>25</version> <!-- Use the latest stable version, e.g., 21 or 22 -->
+      <version>17.0.18</version> <!-- Use the latest stable version, e.g., 21 or 22 -->
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>25</version> <!-- Use the same version as above -->
+      <version>17.0.18</version> <!-- Use the same version as above -->
     </dependency>
   </dependencies>
 
@@ -110,7 +110,7 @@
           <artifactId>javafx-maven-plugin</artifactId>
           <version>0.0.8</version> <!-- Use a recent version -->
           <configuration>
-            <mainClass>your_package_name.YourMainClass</mainClass>
+            <mainClass>org.bohdansharubin.gui.JavaFXApp</mainClass>
           </configuration>
         </plugin>
       </plugins>
