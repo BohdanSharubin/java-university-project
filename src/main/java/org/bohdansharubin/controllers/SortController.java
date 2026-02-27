@@ -65,30 +65,10 @@ public class SortController {
                 scanner.nextLine();
 
                 return switch (choice) {
-                    case 1 -> service.getSortedListByComparator(new Comparator<Clothes>() {
-                        @Override
-                        public int compare(Clothes o1, Clothes o2) {
-                            return o1.getType().compareTo(o2.getType());
-                        }
-                    });
-                    case 2 -> service.getSortedListByComparator(new Comparator<Clothes>() {
-                        @Override
-                        public int compare(Clothes o1, Clothes o2) {
-                            return o1.getColor().compareTo(o2.getColor());
-                        }
-                    });
-                    case 3 -> service.getSortedListByComparator(new Comparator<Clothes>() {
-                        @Override
-                        public int compare(Clothes o1, Clothes o2) {
-                            return o1.getAmericanSize().compareTo(o2.getAmericanSize());
-                        }
-                    });
-                    case 4 -> service.getSortedListByComparator(new Comparator<Clothes>() {
-                        @Override
-                        public int compare(Clothes o1, Clothes o2) {
-                            return Integer.compare(o1.getEuropeanSize(), o2.getEuropeanSize());
-                        }
-                    });
+                    case 1 -> service.getSortedListByComparator(Comparator.comparing(Clothes::getType));
+                    case 2 -> service.getSortedListByComparator((o1, o2) -> o1.getColor().compareTo(o2.getColor()));
+                    case 3 -> service.getSortedListByComparator((o1, o2) -> o1.getAmericanSize().compareTo(o2.getAmericanSize()));
+                    case 4 -> service.getSortedListByComparator((o1, o2) -> Integer.compare(o1.getEuropeanSize(), o2.getEuropeanSize()));
                     case 5 -> service.getSortedList();
                     case 99 -> null;
                     default -> throw new InputMismatchException("Invalid choice");
