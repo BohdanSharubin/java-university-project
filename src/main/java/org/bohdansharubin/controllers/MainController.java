@@ -4,6 +4,7 @@ import org.bohdansharubin.models.*;
 import org.bohdansharubin.services.ClothesService;
 import org.bohdansharubin.views.CreateView;
 import org.bohdansharubin.views.SearchView;
+import org.bohdansharubin.views.SortView;
 import org.bohdansharubin.views.View;
 
 import java.util.InputMismatchException;
@@ -23,6 +24,7 @@ public class MainController {
     private final Scanner scanner;
     private final CreateController createController;
     private final SearchController searchController;
+    private final SortController sortController;
 
     /**
      * Constructs MainController with dependencies.
@@ -37,6 +39,7 @@ public class MainController {
         this.scanner = scanner;
         this.createController = new CreateController(new CreateView(), scanner);
         this.searchController = new SearchController(new SearchView(), clothesService, scanner);
+        this.sortController = new SortController(new SortView(), clothesService, scanner);
     }
 
     /**
@@ -75,7 +78,12 @@ public class MainController {
                             System.out.println("Results of your search: " + filteredList);
                         }
                     }
-                    case 4 -> System.out.println(clothesService.getSortedList());
+                    case 4 -> {
+                        List<Clothes> sortedList = sortController.sort();
+                        if (sortedList != null) {
+                            System.out.println(sortedList);
+                        }
+                    }
                     case 99 -> isWorking = false;
                     default -> System.out.println("Wrong choice");
                 }
