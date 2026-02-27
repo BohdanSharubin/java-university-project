@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.bohdansharubin.gui.controllers.ClothesController">
+
+    <TitledPane text="Create Clothes">
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <ComboBox fx:id="typeBox" promptText="Select type" />
+            <TextField fx:id="colorField" promptText="Enter color" />
+
+            <ComboBox fx:id="americanSizeBox" promptText="American size" />
+            <TextField fx:id="europeanSizeField" promptText="European size" />
+
+            <Button onAction="#handleAdd" text="Add" />
+        </VBox>
+    </TitledPane>
+
+    <TitledPane text="Collection (Short View)" expanded="false">
+        <VBox>
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <Button onAction="#handleRefresh" prefHeight="19.0" prefWidth="56.0" text="Refresh" >
+                <VBox.margin>
+                    <Insets top="0" right="0" bottom="10" left="0"/>
+                </VBox.margin>
+            </Button>
+            <TableView fx:id="collectionTable">
+                <columns>
+                    <TableColumn fx:id="uuidColumn" prefWidth="250" text="UUID" />
+                    <TableColumn fx:id="colorColumn" prefWidth="120" text="Color" />
+                    <TableColumn fx:id="typeColumn" prefWidth="120" text="Type" />
+                </columns>
+            </TableView>
+        </VBox>
+    </TitledPane>
+
+    <TitledPane text="Search by UUID" expanded="false">
+        <VBox spacing="10.0">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+
+            <TextField fx:id="uuidField" promptText="Enter UUID" />
+            <Button onAction="#handleFind" text="Find" />
+
+            <TextArea fx:id="detailsArea" editable="false" prefHeight="120" promptText="Full object details..." />
+        </VBox>
+    </TitledPane>
+
+</VBox>
