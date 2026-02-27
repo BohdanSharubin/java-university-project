@@ -1,4 +1,5 @@
 package org.bohdansharubin;
+
 import org.bohdansharubin.enums.*;
 import org.bohdansharubin.models.*;
 
@@ -18,7 +19,8 @@ public class ClothesFactory {
     /**
      * Private constructor to prevent instantiation of utility class.
      */
-    private ClothesFactory() {}
+    private ClothesFactory() {
+    }
 
     /**
      * Prompts the user to enter clothing attributes and creates a valid
@@ -30,6 +32,7 @@ public class ClothesFactory {
      *     <li>{@link InputMismatchException} – when numeric input is invalid</li>
      *     <li>{@link IllegalArgumentException} – when validation fails in {@link Clothes}</li>
      * </ul>
+     *
      * @param clothesType is which type of object method needs to be created
      * @return a valid {@link Clothes} object based on user input
      */
@@ -51,7 +54,7 @@ public class ClothesFactory {
                 System.out.println("Please enter european size of the clothes: ");
                 europeanSize = input.nextInt();
                 input.nextLine();
-                clothes =  switch (clothesType) {
+                clothes = switch (clothesType) {
                     case PANTS -> {
                         System.out.println("Enter is pants has pockets(true/false):");
                         boolean hasPockets = Boolean.parseBoolean(input.nextLine());
@@ -65,7 +68,7 @@ public class ClothesFactory {
                     case HAT -> {
                         System.out.println("Enter if hat is waterproof(true/false):");
                         boolean hasWaterproof = Boolean.parseBoolean(input.nextLine());
-                        System.out.println("Enter hat type " +  Arrays.toString(HatType.values()));
+                        System.out.println("Enter hat type " + Arrays.toString(HatType.values()));
                         HatType hatType = HatType.valueOf(input.nextLine().toUpperCase());
                         yield new Hat(color, europeanSize, americanSize, hasWaterproof, hatType);
                     }
@@ -91,5 +94,16 @@ public class ClothesFactory {
         }
 
         return clothes;
+    }
+
+    public static Clothes createClothes(String color, ClothesType clothesType, int europeanSize, AmericanSize americanSize) {
+        return switch (clothesType) {
+            case PANTS -> new Pants(color, europeanSize, americanSize, false);
+            case SHIRT -> new Shirt(color, europeanSize, americanSize, SleeveLength.LONG);
+            case HAT -> new Hat(color, europeanSize, americanSize, false, HatType.CAP);
+            case SKIRT -> new Skirt(color, europeanSize, americanSize, SkirtLength.MIDI);
+            default -> throw new UnsupportedOperationException("Undefined type: " + clothesType);
+        };
+
     }
 }
