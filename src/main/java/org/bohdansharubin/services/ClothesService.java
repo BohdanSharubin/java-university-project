@@ -5,6 +5,7 @@ import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.models.Clothes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -118,5 +119,15 @@ public class ClothesService {
             }
         }
         return filteredList;
+    }
+
+    /**
+     * Returns sorted list of clothes not modified original list
+     * @return sorted list of clothes
+     */
+    public List<Clothes> getSortedList() {
+        return clothesList.stream()
+                .sorted()
+                .toList();
     }
 }
