@@ -3,6 +3,8 @@ package org.bohdansharubin;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.enums.ClothesType;
+import org.bohdansharubin.models.Pants;
+import org.bohdansharubin.models.Shirt;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,7 @@ class ClothesTest {
     @DisplayName("Constructor with valid arguments")
     @Test
     void shouldCreateClothesWhenValidArguments() {
-        Clothes clothes = new Clothes("Red", ClothesType.SHIRT, 40, AmericanSize.M);
+        Clothes clothes = new Shirt("Red", 40, AmericanSize.M);
 
         assertAll(
                 () -> assertEquals("Red", clothes.getColor()),
@@ -28,21 +30,10 @@ class ClothesTest {
     void shouldThrowExceptionWhenColorIsNullInConstructor() {
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
-                () -> new Clothes(null, ClothesType.SHIRT, 40, AmericanSize.M)
+                () -> new Shirt(null, 40, AmericanSize.M)
         );
 
         assertEquals("Color cannot be empty", ex.getMessage());
-    }
-
-    @DisplayName("Constructor with null type")
-    @Test
-    void shouldThrowExceptionWhenTypeIsNullInConstructor() {
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> new Clothes("Red", null, 40, AmericanSize.M)
-        );
-
-        assertEquals("Type cannot be null", ex.getMessage());
     }
 
     @DisplayName("Constructor with invalid european size")
@@ -50,7 +41,7 @@ class ClothesTest {
     void shouldThrowExceptionWhenEuropeanSizeInvalidInConstructor() {
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
-                () -> new Clothes("Red", ClothesType.SHIRT, 10, AmericanSize.M)
+                () -> new Shirt("Red", 10, AmericanSize.M)
         );
 
         assertEquals("European size has to be between 32 and 60", ex.getMessage());
@@ -61,7 +52,7 @@ class ClothesTest {
     void shouldThrowExceptionWhenAmericanSizeIsNullInConstructor() {
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
-                () -> new Clothes("Red", ClothesType.SHIRT, 40, null)
+                () -> new Shirt("Red", 40, null)
         );
 
         assertTrue(ex.getMessage().contains("American size"));
@@ -70,8 +61,8 @@ class ClothesTest {
     @DisplayName("Copy constructor test")
     @Test
     void shouldCopyConstructorCreateEqualObject() {
-        Clothes original = new Clothes("Blue", ClothesType.PANTS, 42, AmericanSize.L);
-        Clothes copy = new Clothes(original);
+        Clothes original = new Pants("Blue", 42, AmericanSize.L);
+        Clothes copy = new Pants(original);
 
         assertEquals(original, copy);
     }
@@ -79,7 +70,7 @@ class ClothesTest {
     @DisplayName("Setting valid color")
     @Test
     void shouldSetColorWhenValid() {
-        Clothes clothes = new Clothes();
+        Clothes clothes = new Shirt();
 
         assertDoesNotThrow(() -> clothes.setColor("Black"));
         assertEquals("Black", clothes.getColor());
@@ -88,7 +79,7 @@ class ClothesTest {
     @DisplayName("Setting invalid color")
     @Test
     void shouldThrowExceptionWhenColorInvalidInSetter() {
-        Clothes clothes = new Clothes();
+        Clothes clothes = new Shirt();
 
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
@@ -98,32 +89,10 @@ class ClothesTest {
         assertEquals("Invalid color", ex.getMessage());
     }
 
-    @DisplayName("Setting valid type")
-    @Test
-    void shouldSetTypeWhenValid() {
-        Clothes clothes = new Clothes();
-
-        assertDoesNotThrow(() -> clothes.setType(ClothesType.HAT));
-        assertEquals(ClothesType.HAT, clothes.getType());
-    }
-
-    @DisplayName("Setting null type")
-    @Test
-    void shouldThrowExceptionWhenTypeNullInSetter() {
-        Clothes clothes = new Clothes();
-
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
-                () -> clothes.setType(null)
-        );
-
-        assertEquals("Clothes type can't be null", ex.getMessage());
-    }
-
     @DisplayName("Setting valid european size")
     @Test
     void shouldSetEuropeanSizeWhenValid() {
-        Clothes clothes = new Clothes();
+        Clothes clothes = new Shirt();
 
         assertDoesNotThrow(() -> clothes.setEuropeanSize(40));
         assertEquals(40, clothes.getEuropeanSize());
@@ -132,7 +101,7 @@ class ClothesTest {
     @DisplayName("Setting invalid european size")
     @Test
     void shouldThrowExceptionWhenEuropeanSizeInvalidInSetter() {
-        Clothes clothes = new Clothes();
+        Clothes clothes = new Shirt();
 
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
@@ -145,7 +114,7 @@ class ClothesTest {
     @DisplayName("Setting valid american size")
     @Test
     void shouldSetAmericanSizeWhenValid() {
-        Clothes clothes = new Clothes();
+        Clothes clothes = new Shirt();
 
         assertDoesNotThrow(() -> clothes.setAmericanSize(AmericanSize.XL));
         assertEquals(AmericanSize.XL, clothes.getAmericanSize());
@@ -154,7 +123,7 @@ class ClothesTest {
     @DisplayName("Setting null american size")
     @Test
     void shouldThrowExceptionWhenAmericanSizeNullInSetter() {
-        Clothes clothes = new Clothes();
+        Clothes clothes = new Shirt();
 
         IllegalArgumentException ex = assertThrows(
                 IllegalArgumentException.class,
