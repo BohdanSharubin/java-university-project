@@ -1,5 +1,6 @@
 package org.bohdansharubin.services;
 
+import org.bohdansharubin.dao.ClothesDAO;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.models.Clothes;
@@ -19,18 +20,19 @@ public class ClothesService {
      * Internal storage of clothes.
      */
     private final List<Clothes> clothesList;
-
+    private final ClothesDAO dao;
     /**
      * Constructs a service with the given list of clothes.
      *
      * @param clothesList initial list of clothes (must not be null)
      * @throws IllegalArgumentException if clothesList is null
      */
-    public ClothesService(List<Clothes> clothesList) {
+    public ClothesService(List<Clothes> clothesList,  ClothesDAO dao) {
         if (clothesList == null) {
             throw new IllegalArgumentException("clothesList must not be null");
         }
         this.clothesList = clothesList;
+        this.dao = dao;
     }
 
     /**
@@ -49,6 +51,7 @@ public class ClothesService {
      */
     public void addClothes(Clothes clothes) {
         clothesList.add(clothes);
+        dao.insert(clothes);
     }
 
     /**
