@@ -24,8 +24,6 @@ public class CreateView implements View {
                 .append(LINE_SEPARATOR)
                 .append("4. Create skirt")
                 .append(LINE_SEPARATOR)
-                .append("5. Create default clothes")
-                .append(LINE_SEPARATOR)
                 .append("99. Go back")
                 .append(LINE_SEPARATOR);
     }

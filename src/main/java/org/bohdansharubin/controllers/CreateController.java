@@ -49,7 +49,6 @@ public class CreateController {
                     case 2 -> ClothesFactory.createClothes(scanner, ClothesType.SHIRT);
                     case 3 -> ClothesFactory.createClothes(scanner, ClothesType.HAT);
                     case 4 -> ClothesFactory.createClothes(scanner, ClothesType.SKIRT);
-                    case 5 -> ClothesFactory.createClothes(scanner, ClothesType.CLOTHES);
                     case 99 -> null;
                     default -> throw new InputMismatchException("Invalid choice");
                 };

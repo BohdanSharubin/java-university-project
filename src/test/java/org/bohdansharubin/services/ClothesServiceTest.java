@@ -9,11 +9,12 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ClothesServiceTest {
     static ClothesService service;
@@ -27,7 +28,6 @@ class ClothesServiceTest {
 
     private static List<Clothes> createClothes() {
         return Arrays.asList(
-                new Clothes("red", ClothesType.CLOTHES, 41, AmericanSize.XL),
                 new Hat("blue", 33, AmericanSize.L, true, HatType.CAP),
                 new Skirt("green", 50, AmericanSize.M, SkirtLength.MIDI),
                 new Shirt("red", 51, AmericanSize.S, SleeveLength.LONG),
@@ -93,6 +93,29 @@ class ClothesServiceTest {
                 .toList();
         List<Clothes> actual = service.findClothesInEuropeanSizeBetween(min, max);
         assertEquals(expected.size(), actual.size());
+        assertEquals(expected, actual);
+    }
+
+    @DisplayName("Sorting empty list")
+    @Test
+    void shouldReturnEmptyListWhenGetSortedListWithEmptyList() {
+        List<Clothes> expected = new ArrayList<>();
+        ClothesService clothesService = new ClothesService(expected);
+        List<Clothes> actual = clothesService.getSortedList();
+        assertEquals(expected.size(), actual.size());
+        assertEquals(expected, actual);
+    }
+
+    @DisplayName("Sorting correct list")
+    @Test
+    void shouldReturnSortedListWhenGetSortedListWithValidList() {
+        List<Clothes> beforeSorting = createClothes();
+        List<Clothes> expected = beforeSorting.stream()
+                .sorted(Comparator.comparingInt(Clothes::getEuropeanSize).thenComparing(Clothes::getColor))
+                .toList();
+        List<Clothes> actual = service.getSortedList();
+        assertEquals(expected.size(), actual.size());
+        assertEquals(beforeSorting.size(), actual.size());
         assertEquals(expected, actual);
     }
 

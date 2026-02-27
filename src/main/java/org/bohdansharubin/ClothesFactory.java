@@ -74,12 +74,7 @@ public class ClothesFactory {
                         SkirtLength skirtLength = SkirtLength.valueOf(input.nextLine().toUpperCase());
                         yield new Skirt(color, europeanSize, americanSize, skirtLength);
                     }
-                    default -> {
-                        System.out.println("Please enter the type of the clothes: ");
-                        String type = input.nextLine();
-                        clothesType = ClothesType.valueOf(type.toUpperCase());
-                        yield new Clothes(color, clothesType, europeanSize, americanSize);
-                    }
+                    default -> throw new UnsupportedOperationException("Undefined type: " + clothesType);
                 };
                 isCreated = true;
 

@@ -47,6 +47,7 @@ public class MainController {
      *     <li>Create clothes</li>
      *     <li>View all clothes</li>
      *     <li>Search/filter clothes</li>
+     *     <li>View sorted list of clothes</li>
      *     <li>Exit application</li>
      * </ul>
      */
@@ -74,6 +75,7 @@ public class MainController {
                             System.out.println("Results of your search: " + filteredList);
                         }
                     }
+                    case 4 -> System.out.println(clothesService.getSortedList());
                     case 99 -> isWorking = false;
                     default -> System.out.println("Wrong choice");
                 }

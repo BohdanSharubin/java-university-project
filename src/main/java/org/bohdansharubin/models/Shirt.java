@@ -89,18 +89,6 @@ public class Shirt extends Clothes {
     }
 
     /**
-     * This operation is not supported because a Shirt
-     * always has the type {@link ClothesType#SHIRT}.
-     *
-     * @param type ignored
-     * @throws UnsupportedOperationException always thrown
-     */
-    @Override
-    public void setType(ClothesType type) {
-        throw new UnsupportedOperationException("Type of the object is always SHIRT");
-    }
-
-    /**
      * Returns a string representation of this Shirt.
      *
      * @return a formatted string containing shirt details
