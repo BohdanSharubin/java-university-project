@@ -1,3 +1,7 @@
 org.bohdansharubin
+org.bohdansharubin.controllers
 org.bohdansharubin.enums
 org.bohdansharubin.models
+org.bohdansharubin.services
+org.bohdansharubin.utils
+org.bohdansharubin.views

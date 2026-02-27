@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.bohdansharubin"},{"l":"org.bohdansharubin.enums"},{"l":"org.bohdansharubin.models"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.bohdansharubin"},{"l":"org.bohdansharubin.controllers"},{"l":"org.bohdansharubin.enums"},{"l":"org.bohdansharubin.models"},{"l":"org.bohdansharubin.services"},{"l":"org.bohdansharubin.utils"},{"l":"org.bohdansharubin.views"}];updateSearchResults();
