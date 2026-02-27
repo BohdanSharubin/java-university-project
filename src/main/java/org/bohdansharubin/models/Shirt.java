@@ -3,6 +3,9 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.SleeveLength;
+
+import java.util.Objects;
+
 /**
  * Represents a Shirt item.
  * <p>
@@ -86,6 +89,19 @@ public class Shirt extends Clothes {
             throw new  IllegalArgumentException("SleeveLength can't be null");
         }
         this.sleeveLength = sleeveLength;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Shirt shirt = (Shirt) o;
+        return sleeveLength == shirt.sleeveLength;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), sleeveLength);
     }
 
     /**

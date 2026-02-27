@@ -89,6 +89,16 @@ public class Skirt extends Clothes {
         this.length = length;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     /**
      * Returns a string representation of this Skirt.
      *
