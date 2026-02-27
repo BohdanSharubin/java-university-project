@@ -7,12 +7,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -117,6 +115,31 @@ class ClothesServiceTest {
         assertEquals(expected.size(), actual.size());
         assertEquals(beforeSorting.size(), actual.size());
         assertEquals(expected, actual);
+    }
+
+    @DisplayName("Find by uuid with existing uuid")
+    @Test
+    void shouldReturnOptionalClothesWhenFindByUuidWithValidUuid() {
+        Clothes expected = service.getClothesList().get(0);
+        Optional<Clothes> actual = service.findClothesByUuid(expected.getUuid());
+        assertTrue(actual.isPresent());
+        assertEquals(expected, actual.get());
+    }
+
+    @DisplayName("Find by uuid with null uuid")
+    @ParameterizedTest
+    @NullSource
+    void shouldReturnEmptyOptionalWhenFindByUuidWithInvalidUuid(UUID uuid) {
+        Optional<Clothes> actual = service.findClothesByUuid(uuid);
+        assertFalse(actual.isPresent());
+    }
+
+    @DisplayName("Find by uuid with random uuid")
+    @Test
+    void shouldReturnEmptyOptionalWhenFindByUuidWithInvalidUuid() {
+        UUID uuid = UUID.randomUUID();
+        Optional<Clothes> actual = service.findClothesByUuid(uuid);
+        assertFalse(actual.isPresent());
     }
 
 }
