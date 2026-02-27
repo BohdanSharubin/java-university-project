@@ -26,6 +26,8 @@ public class SearchView implements View {
                 .append(LINE_SEPARATOR)
                 .append("4. Search by european size(between min and max)")
                 .append(LINE_SEPARATOR)
+                .append("5. Search by Uuid")
+                .append(LINE_SEPARATOR)
                 .append("99. Go back")
                 .append(LINE_SEPARATOR);
     }
