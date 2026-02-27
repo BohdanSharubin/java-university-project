@@ -6,10 +6,7 @@ import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.services.ClothesService;
 import org.bohdansharubin.views.View;
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Controller responsible for searching and filtering {@link Clothes}.
@@ -76,6 +73,21 @@ public class SearchController {
                         int max = scanner.nextInt();
                         yield clothesService.findClothesInEuropeanSizeBetween(min, max);
                     }
+                    case 5 -> {
+                        System.out.println("All clothes with uuid:");
+                        clothesService.getSortedListByComparator(Comparator.comparing(Clothes::getUuid))
+                                .stream()
+                                .map(clothes -> clothes.getUuid().toString() + "\t" + clothes.getType().toString())
+                                .forEach(System.out::println);
+                        System.out.println("Enter uuid for search");
+                        String stringUuid = scanner.nextLine();
+                        Optional<Clothes> searchResult = clothesService.findClothesByUuid(UUID.fromString(stringUuid));
+                        if(searchResult.isPresent()) {
+                            yield List.of(searchResult.get());
+                        } else {
+                            yield new ArrayList<>();
+                        }
+                    }
                     case 99 -> null;
                     default -> throw new InputMismatchException("Invalid choice");
                 };
@@ -83,6 +95,8 @@ public class SearchController {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
                 scanner.nextLine();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Wrong uuid. Try again");
             }
         }
     }
