@@ -6,6 +6,7 @@ import org.bohdansharubin.models.Clothes;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -128,6 +129,16 @@ public class ClothesService {
     public List<Clothes> getSortedList() {
         return clothesList.stream()
                 .sorted()
+                .toList();
+    }
+
+    /**
+     * Returns sorted list of clothes with given comparator not modified original list
+     * @return sorted list of clothes with comparator
+     */
+    public List<Clothes> getSortedListByComparator(Comparator<Clothes> comparator) {
+        return clothesList.stream()
+                .sorted(comparator)
                 .toList();
     }
 }
