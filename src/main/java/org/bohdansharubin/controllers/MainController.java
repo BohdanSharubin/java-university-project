@@ -23,6 +23,7 @@ public class MainController {
     private final SearchController searchController;
     private final SortController sortController;
     private final UpdateController updateController;
+    private final DeleteController deleteController;
 
     /**
      * Constructs MainController with dependencies.
@@ -39,6 +40,7 @@ public class MainController {
         this.searchController = new SearchController(new SearchView(), clothesService, scanner);
         this.sortController = new SortController(new SortView(), clothesService, scanner);
         this.updateController = new UpdateController(new UpdateView(), clothesService, scanner);
+        this.deleteController = new DeleteController(new DeleteView(), clothesService, scanner);
     }
 
     /**
@@ -50,6 +52,8 @@ public class MainController {
      *     <li>View all clothes</li>
      *     <li>Search/filter clothes</li>
      *     <li>View sorted list of clothes</li>
+     *     <li>Update clothes</li>
+     *     <li>Delete clothes</li>
      *     <li>Exit application</li>
      * </ul>
      */
@@ -85,13 +89,22 @@ public class MainController {
                     }
                     case 5 -> {
                         System.out.println("All clothes:");
-//                        System.out.println(clothesService.getClothesList());
                         System.out.println(clothesService.toFormattedString());
                         boolean isUpdated = updateController.update();
                         if (isUpdated) {
                             System.out.println("Clothes was updated");
                         } else {
                             System.out.println("Clothes was NOT updated");
+                        }
+                    }
+                    case 6 -> {
+                        System.out.println("All clothes:");
+                        System.out.println(clothesService.toFormattedString());
+                        boolean isUpdated = deleteController.delete();
+                        if (isUpdated) {
+                            System.out.println("Clothes was deleted");
+                        } else {
+                            System.out.println("Clothes was NOT deleted");
                         }
                     }
                     case 99 -> isWorking = false;
