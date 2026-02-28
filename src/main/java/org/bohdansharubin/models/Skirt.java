@@ -108,7 +108,7 @@ public class Skirt extends Clothes {
     public String toString() {
         return "Skirt{" +
                 "uuid=" + getUuid() +
-                "color='" + getColor() + '\'' +
+                ", color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
                 ", americanSize='" + getAmericanSize() + '\'' +

@@ -137,7 +137,7 @@ public class Hat extends Clothes {
     public String toString() {
         return "Hat{" +
                 "uuid=" + getUuid() +
-                "color='" + getColor() + '\'' +
+                ", color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
                 ", americanSize='" + getAmericanSize() + '\'' +

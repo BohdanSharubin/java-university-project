@@ -171,7 +171,7 @@ public abstract class Clothes implements Serializable, Comparable<Clothes>, Iden
     public String toString() {
         return "Clothes{" +
                 "uuid=" + uuid +
-                "color='" + color + '\'' +
+                ", color='" + color + '\'' +
                 ", type='" + type + '\'' +
                 ", europeanSize=" + europeanSize +
                 ", americanSize='" + americanSize + '\'' +
