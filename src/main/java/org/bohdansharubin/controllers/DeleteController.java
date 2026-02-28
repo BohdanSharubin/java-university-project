@@ -56,18 +56,7 @@ public class DeleteController {
                 scanner.nextLine();
 
                 return switch (choice) {
-                    case 1 -> {
-                        Iterator<Clothes> clothesIterator = clothesService.getClothesList().iterator();
-                        Clothes item;
-                        while(clothesIterator.hasNext()) {
-                            item = clothesIterator.next();
-                            if(item.getUuid().equals(clothes.getUuid())) {
-                                clothesIterator.remove();
-                                yield true;
-                            }
-                        }
-                        yield false;
-                    }
+                    case 1 -> clothesService.deleteClothesByUuid(clothes.getUuid());
                     case 2 -> false;
                     default -> throw new InputMismatchException("Invalid choice");
                 };
