@@ -1,6 +1,7 @@
 org.bohdansharubin
 org.bohdansharubin.controllers
 org.bohdansharubin.enums
+org.bohdansharubin.exceptions
 org.bohdansharubin.models
 org.bohdansharubin.services
 org.bohdansharubin.utils
