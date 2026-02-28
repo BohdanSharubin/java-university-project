@@ -207,6 +207,35 @@ public class ClothesService {
     }
 
     /**
+     * Removes a clothes item from the collection by its UUID.
+     *
+     * <p>If the provided UUID is {@code null}, the method immediately
+     * returns {@code false}.</p>
+     *
+     * <p>The method iterates through the internal collection and removes
+     * the first item whose UUID matches the provided value.</p>
+     *
+     * @param uuid the unique identifier of the clothes item to remove
+     * @return {@code true} if an item was found and removed,
+     *         {@code false} otherwise
+     */
+    public boolean deleteClothesByUuid(UUID uuid) {
+        if(uuid == null) {
+            return false;
+        }
+        Iterator<Clothes> clothesIterator = clothesList.iterator();
+        Clothes item;
+        while(clothesIterator.hasNext()) {
+            item = clothesIterator.next();
+            if(item.getUuid().equals(uuid)) {
+                clothesIterator.remove();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Generates a formatted header row for the clothes table.
      *
      * <p>The header includes column names: UUID, type, American size,
