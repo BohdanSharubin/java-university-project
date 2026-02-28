@@ -3,6 +3,7 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.HatType;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 
 import java.util.Objects;
 
@@ -28,7 +29,7 @@ public class Hat extends Clothes {
      * @param europeanSize the European size; must be within the valid range
      * @param americanSize the American size; must not be {@code null}
      *
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     public Hat(String color, int europeanSize, AmericanSize americanSize) {
         super(color, ClothesType.HAT, europeanSize, americanSize);
@@ -43,13 +44,13 @@ public class Hat extends Clothes {
      * @param isWaterProof indicates whether the hat is waterproof
      * @param hatType      the type of the hat; must not be {@code null}
      *
-     * @throws IllegalArgumentException if {@code hatType} is {@code null}
+     * @throws InvalidFieldValueException if {@code hatType} is {@code null}
      */
     public Hat(String color, int europeanSize, AmericanSize americanSize, boolean isWaterProof, HatType hatType) {
         super(color, ClothesType.HAT, europeanSize, americanSize);
         this.isWaterProof = isWaterProof;
         if (hatType == null) {
-            throw new IllegalArgumentException("hatType cannot be null");
+            throw new InvalidFieldValueException("hatType cannot be null");
         }
         this.hatType = hatType;
     }
@@ -64,13 +65,13 @@ public class Hat extends Clothes {
      * @param isWaterProof indicates whether the hat is waterproof
      * @param hatType      the type of the hat; must not be {@code null}
      *
-     * @throws IllegalArgumentException if {@code hatType} is {@code null}
+     * @throws InvalidFieldValueException if {@code hatType} is {@code null}
      */
     public Hat(Clothes other, boolean isWaterProof, HatType hatType) {
         super(other);
         this.isWaterProof = isWaterProof;
         if (hatType == null) {
-            throw new IllegalArgumentException("hatType cannot be null");
+            throw new InvalidFieldValueException("hatType cannot be null");
         }
         this.hatType = hatType;
     }
@@ -106,11 +107,11 @@ public class Hat extends Clothes {
      * Sets the type of this Hat.
      *
      * @param hatType the hat type to set; must not be {@code null}
-     * @throws IllegalArgumentException if {@code hatType} is {@code null}
+     * @throws InvalidFieldValueException if {@code hatType} is {@code null}
      */
     public void setHatType(HatType hatType) {
         if (hatType == null) {
-            throw new IllegalArgumentException("hatType cannot be null");
+            throw new InvalidFieldValueException("hatType cannot be null");
         }
         this.hatType = hatType;
     }

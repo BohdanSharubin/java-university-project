@@ -3,6 +3,7 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.SleeveLength;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 
 import java.util.Objects;
 
@@ -26,7 +27,7 @@ public class Shirt extends Clothes {
      * @param europeanSize the European size; must be within the valid range
      * @param americanSize the American size; must not be {@code null}
      *
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     public Shirt(String color, int europeanSize, AmericanSize americanSize) {
         super(color, ClothesType.SHIRT, europeanSize, americanSize);
@@ -40,12 +41,12 @@ public class Shirt extends Clothes {
      * @param americanSize the American size; must not be {@code null}
      * @param sleeveLength the sleeve length; may be {@code null} if not specified
      *
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     public Shirt(String color, int europeanSize, AmericanSize americanSize, SleeveLength sleeveLength) {
         super(color, ClothesType.SHIRT, europeanSize, americanSize);
         if(sleeveLength == null) {
-            throw new  IllegalArgumentException("SleeveLength can't be null");
+            throw new InvalidFieldValueException("SleeveLength can't be null");
         }
         this.sleeveLength = sleeveLength;
     }
@@ -82,11 +83,11 @@ public class Shirt extends Clothes {
      * Sets the sleeve length of this Shirt.
      *
      * @param sleeveLength the sleeve length to set
-     * @throws IllegalArgumentException if sleeveLength is null
+     * @throws InvalidFieldValueException if sleeveLength is null
      */
     public void setSleeveLength(SleeveLength sleeveLength) {
         if(sleeveLength == null) {
-            throw new  IllegalArgumentException("SleeveLength can't be null");
+            throw new InvalidFieldValueException("SleeveLength can't be null");
         }
         this.sleeveLength = sleeveLength;
     }

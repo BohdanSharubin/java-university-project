@@ -3,6 +3,7 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.SkirtLength;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 
 /**
  * Represents a Skirt item.
@@ -24,7 +25,7 @@ public class Skirt extends Clothes {
      * @param europeanSize the European size; must be within the valid range
      * @param americanSize the American size; must not be {@code null}
      *
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     public Skirt(String color, int europeanSize, AmericanSize americanSize) {
         super(color, ClothesType.SKIRT, europeanSize, americanSize);
@@ -38,12 +39,12 @@ public class Skirt extends Clothes {
      * @param americanSize the American size; must not be {@code null}
      * @param length       the skirt length; must not be {@code null}
      *
-     * @throws IllegalArgumentException if {@code length} is {@code null}
+     * @throws InvalidFieldValueException if {@code length} is {@code null}
      */
     public Skirt(String color, int europeanSize, AmericanSize americanSize, SkirtLength length) {
         super(color, ClothesType.SKIRT, europeanSize, americanSize);
         if (length == null) {
-            throw new IllegalArgumentException("length can't be null");
+            throw new InvalidFieldValueException("length can't be null");
         }
         this.length = length;
     }
@@ -80,11 +81,11 @@ public class Skirt extends Clothes {
      * Sets the length of this Skirt.
      *
      * @param length the skirt length to set; must not be {@code null}
-     * @throws IllegalArgumentException if {@code length} is {@code null}
+     * @throws InvalidFieldValueException if {@code length} is {@code null}
      */
     public void setLength(SkirtLength length) {
         if (length == null) {
-            throw new IllegalArgumentException("length can't be null");
+            throw new InvalidFieldValueException("length can't be null");
         }
         this.length = length;
     }
