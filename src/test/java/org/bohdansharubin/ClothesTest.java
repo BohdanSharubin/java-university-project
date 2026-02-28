@@ -1,6 +1,7 @@
 package org.bohdansharubin;
 
 import org.bohdansharubin.enums.AmericanSize;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.models.Pants;
@@ -28,8 +29,8 @@ class ClothesTest {
     @DisplayName("Constructor with null color")
     @Test
     void shouldThrowExceptionWhenColorIsNullInConstructor() {
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        InvalidFieldValueException ex = assertThrows(
+                InvalidFieldValueException.class,
                 () -> new Shirt(null, 40, AmericanSize.M)
         );
 
@@ -39,8 +40,8 @@ class ClothesTest {
     @DisplayName("Constructor with invalid european size")
     @Test
     void shouldThrowExceptionWhenEuropeanSizeInvalidInConstructor() {
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        InvalidFieldValueException ex = assertThrows(
+                InvalidFieldValueException.class,
                 () -> new Shirt("Red", 10, AmericanSize.M)
         );
 
@@ -50,8 +51,8 @@ class ClothesTest {
     @DisplayName("Constructor with null american size")
     @Test
     void shouldThrowExceptionWhenAmericanSizeIsNullInConstructor() {
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        InvalidFieldValueException ex = assertThrows(
+                InvalidFieldValueException.class,
                 () -> new Shirt("Red", 40, null)
         );
 
@@ -81,8 +82,8 @@ class ClothesTest {
     void shouldThrowExceptionWhenColorInvalidInSetter() {
         Clothes clothes = new Shirt();
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        InvalidFieldValueException ex = assertThrows(
+                InvalidFieldValueException.class,
                 () -> clothes.setColor(" ")
         );
 
@@ -103,8 +104,8 @@ class ClothesTest {
     void shouldThrowExceptionWhenEuropeanSizeInvalidInSetter() {
         Clothes clothes = new Shirt();
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        InvalidFieldValueException ex = assertThrows(
+                InvalidFieldValueException.class,
                 () -> clothes.setEuropeanSize(100)
         );
 
@@ -125,8 +126,8 @@ class ClothesTest {
     void shouldThrowExceptionWhenAmericanSizeNullInSetter() {
         Clothes clothes = new Shirt();
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        InvalidFieldValueException ex = assertThrows(
+                InvalidFieldValueException.class,
                 () -> clothes.setAmericanSize(null)
         );
 

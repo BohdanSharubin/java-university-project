@@ -3,6 +3,7 @@ package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
 import org.bohdansharubin.enums.SleeveLength;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 
 import java.util.Objects;
 
@@ -24,7 +25,7 @@ public class Pants extends Clothes {
      * @param color        the color of the pants (must not be null or blank)
      * @param europeanSize the European size (must be within valid range)
      * @param americanSize the American size (must not be null)
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     public Pants(String color, int europeanSize, AmericanSize americanSize) {
         super(color, ClothesType.PANTS, europeanSize, americanSize);
@@ -37,7 +38,7 @@ public class Pants extends Clothes {
      * @param europeanSize the European size (must be within valid range)
      * @param americanSize the American size (must not be null)
      * @param hasPockets the availability of pockets
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     public Pants(String color, int europeanSize, AmericanSize americanSize, boolean hasPockets) {
         super(color, ClothesType.PANTS, europeanSize, americanSize);
@@ -101,6 +102,7 @@ public class Pants extends Clothes {
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
                 ", americanSize='" + getAmericanSize() + '\'' +
+                ", hasPockets=" + hasPockets +
                 '}';
     }
 }

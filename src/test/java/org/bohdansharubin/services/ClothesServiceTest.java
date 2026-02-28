@@ -1,6 +1,7 @@
 package org.bohdansharubin.services;
 
 import org.bohdansharubin.enums.*;
+import org.bohdansharubin.exceptions.ClothesNotFoundException;
 import org.bohdansharubin.models.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +20,7 @@ class ClothesServiceTest {
     static List<Clothes> clothesList;
 
     @BeforeAll
-    static void setUpBeforeClass() throws Exception {
+    static void setUpBeforeClass() {
         clothesList = createClothes();
         service = new ClothesService(clothesList);
     }
@@ -130,16 +131,20 @@ class ClothesServiceTest {
     @ParameterizedTest
     @NullSource
     void shouldReturnEmptyOptionalWhenFindByUuidWithInvalidUuid(UUID uuid) {
-        Optional<Clothes> actual = service.findClothesByUuid(uuid);
-        assertFalse(actual.isPresent());
+        ClothesNotFoundException ex = assertThrows(
+                ClothesNotFoundException.class,
+                () -> service.findClothesByUuid(uuid));
+        assertEquals("Clothes with uuid = " + uuid + " not found", ex.getMessage());
     }
 
     @DisplayName("Find by uuid with random uuid")
     @Test
     void shouldReturnEmptyOptionalWhenFindByUuidWithInvalidUuid() {
         UUID uuid = UUID.randomUUID();
-        Optional<Clothes> actual = service.findClothesByUuid(uuid);
-        assertFalse(actual.isPresent());
+        ClothesNotFoundException ex =  assertThrows(
+                ClothesNotFoundException.class,
+                () -> service.findClothesByUuid(uuid));
+        assertEquals("Clothes with uuid = " + uuid + " not found", ex.getMessage());
     }
 
     @DisplayName("Delete by uuid with valid uuid")
@@ -154,28 +159,27 @@ class ClothesServiceTest {
         boolean result = serviceForDeleting.deleteClothesByUuid(uuid);
 
         assertTrue(result);
-        assertTrue(serviceForDeleting.findClothesByUuid(uuid).isEmpty());
+        ClothesNotFoundException ex =  assertThrows(
+                ClothesNotFoundException.class,
+                () -> service.deleteClothesByUuid(uuid));
+        assertEquals("Clothes with uuid = " + uuid + " not found", ex.getMessage());
     }
 
     @DisplayName("Delete by uuid with uuid that not in service")
     @Test
-    void shouldReturnFalseWhenDeleteByUuidWithNotExistingUuid() {
+    void shouldThrowClothesNotFoundExceptionWhenDeleteByUuidWithNotExistingUuid() {
         UUID uuid = UUID.randomUUID();
-        assertFalse(service.findClothesByUuid(uuid).isPresent());
-
-        boolean result = service.deleteClothesByUuid(uuid);
-
-        assertFalse(result);
+        ClothesNotFoundException ex =  assertThrows(
+                ClothesNotFoundException.class,
+                () -> service.deleteClothesByUuid(uuid));
+        assertEquals("Clothes with uuid = " + uuid + " not found", ex.getMessage());
     }
 
     @DisplayName("Delete by nullable uuid")
     @ParameterizedTest
     @NullSource
     void shouldReturnFalseWhenDeleteByUuidWithInvalidUuid(UUID uuid) {
-        assertFalse(service.findClothesByUuid(uuid).isPresent());
-
         boolean result = service.deleteClothesByUuid(uuid);
-
         assertFalse(result);
     }
 

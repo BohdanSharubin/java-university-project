@@ -1,5 +1,6 @@
 package org.bohdansharubin;
 import org.bohdansharubin.enums.*;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 import org.bohdansharubin.models.*;
 
 import java.util.Arrays;
@@ -81,12 +82,14 @@ public class ClothesFactory {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
                 input.nextLine();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Wrong input");
+            } catch (InvalidFieldValueException e) {
+                System.out.println(e.getMessage());
                 System.out.println("Try again");
                 input.nextLine();
             } catch (UnsupportedOperationException e) {
                 System.out.println(e.getMessage());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Can't create clothes if field  has not predifiend value");
             }
         }
 

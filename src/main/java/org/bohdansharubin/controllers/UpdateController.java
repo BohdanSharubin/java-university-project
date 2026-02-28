@@ -1,6 +1,8 @@
 package org.bohdansharubin.controllers;
 
 import org.bohdansharubin.enums.AmericanSize;
+import org.bohdansharubin.exceptions.ClothesNotFoundException;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.services.ClothesService;
 import org.bohdansharubin.views.View;
@@ -55,6 +57,9 @@ public class UpdateController {
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid UUID");
             return false;
+        } catch (ClothesNotFoundException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
         Clothes clothes = clothesForUpdate.get();
         while (true) {
@@ -92,8 +97,10 @@ public class UpdateController {
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input");
                 scanner.nextLine();
-            } catch (IllegalArgumentException e) {
-                System.out.println("Wrong uuid. Try again");
+            } catch (InvalidFieldValueException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try again");
+                scanner.nextLine();
             }
         }
     }

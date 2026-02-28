@@ -15,7 +15,7 @@ public class SortView implements  View {
      * Constructs and initializes the sort menu content.
      */
     public SortView() {
-        stringBuilder.append("Search menu:")
+        stringBuilder.append("Sort menu:")
                 .append(LINE_SEPARATOR)
                 .append("1. Sort by type")
                 .append(LINE_SEPARATOR)

@@ -1,6 +1,7 @@
 package org.bohdansharubin.models;
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
+import org.bohdansharubin.exceptions.InvalidFieldValueException;
 
 import java.io.*;
 import java.util.Objects;
@@ -31,7 +32,7 @@ public abstract class Clothes implements Serializable, Comparable<Clothes>, Iden
      * @param type           the type of clothes (must be one of COMMON_TYPES)
      * @param europeanSize   the European size (must be between 32 and 60)
      * @param americanSize   the American size (must be one of COMMON_AMERICAN_SIZES)
-     * @throws IllegalArgumentException if any argument is invalid
+     * @throws InvalidFieldValueException if any argument is invalid
      */
     protected Clothes(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
         isValid(color, type, europeanSize, americanSize);
@@ -80,11 +81,11 @@ public abstract class Clothes implements Serializable, Comparable<Clothes>, Iden
      * Sets the color of the clothes.
      *
      * @param color the color to set (must not be null or blank)
-     * @throws IllegalArgumentException if color is invalid
+     * @throws InvalidFieldValueException if color is invalid
      */
     public void setColor(String color) {
         if (!isStringValid(color)) {
-            throw new IllegalArgumentException("Invalid color");
+            throw new InvalidFieldValueException("Invalid color");
         }
         this.color = color;
     }
@@ -107,11 +108,11 @@ public abstract class Clothes implements Serializable, Comparable<Clothes>, Iden
      * Sets the European size.
      *
      * @param europeanSize size between 32 and 60
-     * @throws IllegalArgumentException if size is invalid
+     * @throws InvalidFieldValueException if size is invalid
      */
     public void setEuropeanSize(int europeanSize) {
         if (!isEuropeanSizeValid(europeanSize)) {
-            throw new IllegalArgumentException("Invalid size");
+            throw new InvalidFieldValueException("Invalid size");
         }
         this.europeanSize = europeanSize;
     }
@@ -127,11 +128,11 @@ public abstract class Clothes implements Serializable, Comparable<Clothes>, Iden
      * Sets the American size.
      *
      * @param americanSize must be one of AmericanSize enum
-     * @throws IllegalArgumentException if size is invalid
+     * @throws InvalidFieldValueException if size is invalid
      */
     public void setAmericanSize(AmericanSize americanSize) {
         if (!isNotNull(americanSize)) {
-            throw new IllegalArgumentException("American size can't be null");
+            throw new InvalidFieldValueException("American size can't be null");
         }
         this.americanSize = americanSize;
     }
@@ -225,16 +226,17 @@ public abstract class Clothes implements Serializable, Comparable<Clothes>, Iden
 
     /**
      * Validates all fields.
+     * @throws InvalidFieldValueException if at least one argument is invalid
      */
     private void isValid(String color, ClothesType type, int europeanSize, AmericanSize americanSize) {
         if (!isStringValid(color)) {
-            throw new IllegalArgumentException("Color cannot be empty");
+            throw new InvalidFieldValueException("Color cannot be empty");
         } else if (!isNotNull(type)) {
-            throw new IllegalArgumentException("Type cannot be null");
+            throw new InvalidFieldValueException("Type cannot be null");
         } else if (!isEuropeanSizeValid(europeanSize)) {
-            throw new IllegalArgumentException("European size has to be between 32 and 60");
+            throw new InvalidFieldValueException("European size has to be between 32 and 60");
         } else if (!isNotNull(americanSize)) {
-            throw new IllegalArgumentException("American size cannot be null ");
+            throw new InvalidFieldValueException("American size cannot be null ");
         }
     }
 
