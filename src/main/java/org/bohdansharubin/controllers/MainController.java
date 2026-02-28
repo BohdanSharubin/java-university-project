@@ -2,10 +2,7 @@ package org.bohdansharubin.controllers;
 
 import org.bohdansharubin.models.*;
 import org.bohdansharubin.services.ClothesService;
-import org.bohdansharubin.views.CreateView;
-import org.bohdansharubin.views.SearchView;
-import org.bohdansharubin.views.SortView;
-import org.bohdansharubin.views.View;
+import org.bohdansharubin.views.*;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -25,6 +22,7 @@ public class MainController {
     private final CreateController createController;
     private final SearchController searchController;
     private final SortController sortController;
+    private final UpdateController updateController;
 
     /**
      * Constructs MainController with dependencies.
@@ -40,6 +38,7 @@ public class MainController {
         this.createController = new CreateController(new CreateView(), scanner);
         this.searchController = new SearchController(new SearchView(), clothesService, scanner);
         this.sortController = new SortController(new SortView(), clothesService, scanner);
+        this.updateController = new UpdateController(new UpdateView(), clothesService, scanner);
     }
 
     /**
@@ -82,6 +81,17 @@ public class MainController {
                         List<Clothes> sortedList = sortController.sort();
                         if (sortedList != null) {
                             System.out.println(sortedList);
+                        }
+                    }
+                    case 5 -> {
+                        System.out.println("All clothes:");
+//                        System.out.println(clothesService.getClothesList());
+                        System.out.println(clothesService.toFormattedString());
+                        boolean isUpdated = updateController.update();
+                        if (isUpdated) {
+                            System.out.println("Clothes was updated");
+                        } else {
+                            System.out.println("Clothes was NOT updated");
                         }
                     }
                     case 99 -> isWorking = false;

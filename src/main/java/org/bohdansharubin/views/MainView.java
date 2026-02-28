@@ -24,6 +24,8 @@ public class MainView implements View {
                 .append(LINE_SEPARATOR)
                 .append("4. Sort clothes")
                 .append(LINE_SEPARATOR)
+                .append("5. Update clothes")
+                .append(LINE_SEPARATOR)
                 .append("99. Exit")
                 .append(LINE_SEPARATOR);
     }
