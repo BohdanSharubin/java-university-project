@@ -31,7 +31,7 @@ public class ClothesService {
         if (clothesList == null) {
             throw new IllegalArgumentException("clothesList must not be null");
         }
-        this.clothesList = clothesList;
+        this.clothesList = new ArrayList<>(clothesList);
     }
 
     /**

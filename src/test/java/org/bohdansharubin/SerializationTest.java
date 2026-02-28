@@ -17,7 +17,6 @@ public class SerializationTest {
         String color = "red";
         int europeanSize = 33;
         AmericanSize americanSize = AmericanSize.L;
-        ClothesType type = ClothesType.CLOTHES;
         Clothes original = new Shirt(color, europeanSize, americanSize);
 
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
