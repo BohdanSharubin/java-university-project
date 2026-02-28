@@ -1,6 +1,7 @@
 package org.bohdansharubin.controllers;
 
 import org.bohdansharubin.enums.AmericanSize;
+import org.bohdansharubin.exceptions.ClothesNotFoundException;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.services.ClothesService;
 import org.bohdansharubin.views.View;
@@ -54,6 +55,9 @@ public class UpdateController {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid UUID");
+            return false;
+        } catch (ClothesNotFoundException e) {
+            System.out.println(e.getMessage());
             return false;
         }
         Clothes clothes = clothesForUpdate.get();

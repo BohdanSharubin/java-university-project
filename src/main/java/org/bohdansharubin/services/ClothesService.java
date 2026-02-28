@@ -2,6 +2,7 @@ package org.bohdansharubin.services;
 
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
+import org.bohdansharubin.exceptions.ClothesNotFoundException;
 import org.bohdansharubin.models.Clothes;
 
 import java.util.*;
@@ -144,6 +145,7 @@ public class ClothesService {
     /**
      * Finds clothes by given uuid
      * @return Optional of clothes with given uuid or empty optional
+     * @throws ClothesNotFoundException when clothes with given uuid not exists
      */
     public Optional<Clothes> findClothesByUuid(UUID uuid) {
         for (Clothes clothes : clothesList) {
@@ -151,7 +153,7 @@ public class ClothesService {
                 return Optional.of(clothes);
             }
         }
-        return Optional.empty();
+        throw new ClothesNotFoundException(uuid);
     }
 
     /**
@@ -218,6 +220,7 @@ public class ClothesService {
      * @param uuid the unique identifier of the clothes item to remove
      * @return {@code true} if an item was found and removed,
      *         {@code false} otherwise
+     * @throws ClothesNotFoundException when clothes was not deleted by given uuid
      */
     public boolean deleteClothesByUuid(UUID uuid) {
         if(uuid == null) {
@@ -232,7 +235,7 @@ public class ClothesService {
                 return true;
             }
         }
-        return false;
+        throw new ClothesNotFoundException(uuid);
     }
 
     /**

@@ -1,5 +1,6 @@
 package org.bohdansharubin.controllers;
 
+import org.bohdansharubin.exceptions.ClothesNotFoundException;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.services.ClothesService;
 import org.bohdansharubin.views.View;
@@ -47,6 +48,9 @@ public class DeleteController {
         } catch (IllegalArgumentException e) {
             System.out.println("Invalid UUID");
             return false;
+        } catch (ClothesNotFoundException e) {
+            System.out.println(e.getMessage());
+            return false;
         }
         Clothes clothes = clothesForDeleting.get();
         while (true) {
@@ -66,6 +70,9 @@ public class DeleteController {
                 scanner.nextLine();
             } catch (IllegalArgumentException e) {
                 System.out.println("Wrong uuid. Try again");
+            } catch (ClothesNotFoundException e) {
+                System.out.println(e.getMessage());
+                return false;
             }
         }
     }

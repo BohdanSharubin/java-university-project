@@ -2,6 +2,7 @@ package org.bohdansharubin.controllers;
 
 import org.bohdansharubin.enums.AmericanSize;
 import org.bohdansharubin.enums.ClothesType;
+import org.bohdansharubin.exceptions.ClothesNotFoundException;
 import org.bohdansharubin.models.Clothes;
 import org.bohdansharubin.services.ClothesService;
 import org.bohdansharubin.views.View;
@@ -81,10 +82,15 @@ public class SearchController {
                                 .forEach(System.out::println);
                         System.out.println("Enter uuid for search");
                         String stringUuid = scanner.nextLine();
-                        Optional<Clothes> searchResult = clothesService.findClothesByUuid(UUID.fromString(stringUuid));
-                        if(searchResult.isPresent()) {
-                            yield List.of(searchResult.get());
-                        } else {
+                        try {
+                            Optional<Clothes> searchResult = clothesService.findClothesByUuid(UUID.fromString(stringUuid));
+                            if(searchResult.isPresent()) {
+                                yield List.of(searchResult.get());
+                            } else {
+                                yield new ArrayList<>();
+                            }
+                        } catch(ClothesNotFoundException e) {
+                            System.out.println(e.getMessage());
                             yield new ArrayList<>();
                         }
                     }
