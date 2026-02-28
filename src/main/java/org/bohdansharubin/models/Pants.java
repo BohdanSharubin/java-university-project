@@ -97,7 +97,7 @@ public class Pants extends Clothes {
     public String toString() {
         return "Pants{" +
                 "uuid=" + getUuid() +
-                "color='" + getColor() + '\'' +
+                ", color='" + getColor() + '\'' +
                 ", type='" + getType() + '\'' +
                 ", europeanSize=" + getEuropeanSize() +
                 ", americanSize='" + getAmericanSize() + '\'' +

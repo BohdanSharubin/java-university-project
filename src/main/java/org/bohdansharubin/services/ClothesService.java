@@ -6,6 +6,8 @@ import org.bohdansharubin.models.Clothes;
 
 import java.util.*;
 
+import static org.bohdansharubin.views.View.LINE_SEPARATOR;
+
 /**
  * Service class responsible for managing and searching {@link Clothes} objects.
  * <p>
@@ -29,7 +31,7 @@ public class ClothesService {
         if (clothesList == null) {
             throw new IllegalArgumentException("clothesList must not be null");
         }
-        this.clothesList = clothesList;
+        this.clothesList = new ArrayList<>(clothesList);
     }
 
     /**
@@ -150,5 +152,124 @@ public class ClothesService {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Builds a formatted string representation of the clothes collection
+     * in a table-like view.
+     *
+     * <p>The output contains a header row and aligned columns for:
+     * UUID, type, American size, European size, and color.</p>
+     *
+     * <p>Column widths are dynamically calculated based on the longest
+     * values (e.g., enum names) to ensure proper alignment.</p>
+     *
+     * @return formatted string representing all clothes in the collection
+     */
+    public String toFormattedString() {
+        final String americanSizeColumn = "american size";
+        final String europeanSizeColumn = "european size";
+        final String space = " ";
+        final String columnDelimiter = space + "|" + space;
+        StringBuilder sb = new StringBuilder();
+
+        int typeLength = Arrays.stream(ClothesType.values())
+                .map(e -> e.toString().length())
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+        int americanLength = americanSizeColumn.length();
+        int europeanLength = europeanSizeColumn.length();
+        sb.append(getFormattedHeader());
+
+        for(Clothes clothes : clothesList) {
+            UUID uuid = clothes.getUuid();
+            ClothesType clothesType = clothes.getType();
+            AmericanSize americanSize = clothes.getAmericanSize();
+            int europeanSize = clothes.getEuropeanSize();
+            String color = clothes.getColor();
+            sb.append(uuid)
+                    .append(columnDelimiter)
+                    .append(clothesType)
+                    .append(space.repeat(typeLength - clothesType.toString().length()))
+                    .append(columnDelimiter)
+                    .append(americanSize)
+                    .append(space.repeat(americanLength - americanSize.toString().length()))
+                    .append(columnDelimiter)
+                    .append(europeanSize)
+                    .append(space.repeat(europeanLength - 2))
+                    .append(columnDelimiter)
+                    .append(color)
+                    .append(LINE_SEPARATOR)
+            ;
+
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Removes a clothes item from the collection by its UUID.
+     *
+     * <p>If the provided UUID is {@code null}, the method immediately
+     * returns {@code false}.</p>
+     *
+     * <p>The method iterates through the internal collection and removes
+     * the first item whose UUID matches the provided value.</p>
+     *
+     * @param uuid the unique identifier of the clothes item to remove
+     * @return {@code true} if an item was found and removed,
+     *         {@code false} otherwise
+     */
+    public boolean deleteClothesByUuid(UUID uuid) {
+        if(uuid == null) {
+            return false;
+        }
+        Iterator<Clothes> clothesIterator = clothesList.iterator();
+        Clothes item;
+        while(clothesIterator.hasNext()) {
+            item = clothesIterator.next();
+            if(item.getUuid().equals(uuid)) {
+                clothesIterator.remove();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Generates a formatted header row for the clothes table.
+     *
+     * <p>The header includes column names: UUID, type, American size,
+     * European size, and color. Column widths are aligned with the data
+     * rows to maintain consistent formatting.</p>
+     *
+     * @return formatted header string
+     */
+    private String getFormattedHeader() {
+        final String americanSizeColumn = "american size";
+        final String europeanSizeColumn = "european size";
+        final String uuidColumn = "uuid";
+        final String typeColumn = "type";
+        final String colorColumn = "color";
+        final String space = " ";
+        StringBuilder sb = new StringBuilder();
+
+        int uuidLength = UUID.randomUUID().toString().length();
+        int typeLength = Arrays.stream(ClothesType.values())
+                .map(e -> e.toString().length())
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+        sb.append(uuidColumn)
+                .append(space.repeat(uuidLength - uuidColumn.length()))
+                .append(" | ")
+                .append(typeColumn)
+                .append(space.repeat(typeLength - typeColumn.length()))
+                .append(" | ")
+                .append(americanSizeColumn)
+                .append(" | ")
+                .append(europeanSizeColumn)
+                .append(" | ")
+                .append(colorColumn)
+                .append(LINE_SEPARATOR);
+        return sb.toString();
     }
 }

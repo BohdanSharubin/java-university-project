@@ -35,7 +35,7 @@ class ClothesServiceTest {
 
     @DisplayName("Filter list by type")
     @ParameterizedTest
-    @ValueSource(strings = {"CLOTHES", "HAT", "SKIRT", "SHIRT", "PANTS"})
+    @ValueSource(strings = {"HAT", "SKIRT", "SHIRT", "PANTS"})
     void shouldReturnFilteredListByTypeWhenValidParameter(String type) {
         ClothesType clothesType = ClothesType.valueOf(type);
         List<Clothes> expected = clothesList.stream()
@@ -140,6 +140,43 @@ class ClothesServiceTest {
         UUID uuid = UUID.randomUUID();
         Optional<Clothes> actual = service.findClothesByUuid(uuid);
         assertFalse(actual.isPresent());
+    }
+
+    @DisplayName("Delete by uuid with valid uuid")
+    @Test
+    void shouldReturnTrueWhenDeleteByUuidWithValidUuid() {
+        ClothesService serviceForDeleting = new ClothesService(new ArrayList<>(createClothes()));
+        Clothes expectedToBeDeleted = serviceForDeleting.getClothesList().get(0);
+        UUID uuid = expectedToBeDeleted.getUuid();
+
+        assertTrue(serviceForDeleting.findClothesByUuid(uuid).isPresent());
+
+        boolean result = serviceForDeleting.deleteClothesByUuid(uuid);
+
+        assertTrue(result);
+        assertTrue(serviceForDeleting.findClothesByUuid(uuid).isEmpty());
+    }
+
+    @DisplayName("Delete by uuid with uuid that not in service")
+    @Test
+    void shouldReturnFalseWhenDeleteByUuidWithNotExistingUuid() {
+        UUID uuid = UUID.randomUUID();
+        assertFalse(service.findClothesByUuid(uuid).isPresent());
+
+        boolean result = service.deleteClothesByUuid(uuid);
+
+        assertFalse(result);
+    }
+
+    @DisplayName("Delete by nullable uuid")
+    @ParameterizedTest
+    @NullSource
+    void shouldReturnFalseWhenDeleteByUuidWithInvalidUuid(UUID uuid) {
+        assertFalse(service.findClothesByUuid(uuid).isPresent());
+
+        boolean result = service.deleteClothesByUuid(uuid);
+
+        assertFalse(result);
     }
 
 }
